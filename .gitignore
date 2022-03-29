@@ -1,0 +1,13 @@
+!node_modules
+node_modules/*
+
+node_modules/@asu-design-system
+!node_modules/@asu-design-system
+node_modules/@asu-design-system/*
+!node_modules/@asu-design-system/app-webdir-ui
+node_modules/@asu-design-system/app-webdir-ui/*
+!node_modules/@asu-design-system/app-webdir-ui/dist
+node_modules/@asu-design-system/app-webdir-ui/dist/*
+!node_modules/@asu-design-system/app-webdir-ui/dist/webdirUI.umd.js
+
+/yarn-error.log
