@@ -1,4 +1,4 @@
-(function ($, Drupal, once) {
+(function ($, Drupal, drupalSettings, once) {
 
   Drupal.behaviors.webSparkWebDir = {
     attach: function (context, settings) {
@@ -10,10 +10,13 @@
 
       const elements = once('webSparkWebDir', '.webdir-container', context);
 
+      $loggedIn = drupalSettings.user.uid !== 0;
+
       elements.forEach((value, index) => {
         props = {
           searchType: value.dataset.searchType,
           searchURL: value.dataset.searchUrl,
+          loggedIn: $loggedIn,
           peopleSearch: value.dataset.peopleSearch,
           ids: value.dataset.asuriteIds,
           deptIds: value.dataset.deptIds,
@@ -37,4 +40,4 @@
       });
     }
   };
-})(jQuery, Drupal, once);
+})(jQuery, Drupal, drupalSettings, once);
