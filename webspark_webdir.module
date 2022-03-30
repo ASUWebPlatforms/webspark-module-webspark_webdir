@@ -1,51 +1,101 @@
 <?php
 
+use Drupal\block_content\Entity\BlockContent;
 
-//function webspark_isearch_theme_suggestions_block_alter(array &$suggestions, array $variables) {
-//  if (isset($variables['elements']['content']['#block_content'])) {
-//    $blockType = $variables['elements']['content']['#block_content']->bundle();
-//    if ($blockType == 'isearch') {
-//      if (isset($variables['elements']['content']['#block_content'])) {
-//        $blockContent = $variables['elements']['content']['#block_content'];
-//        $type = $blockContent->get('field_isearchtype');
-//        $typeString = $type->get(0)->get('value')->getString();
-//        $suggestions[] = 'block__' . 'isearch_' . $typeString;
-//      }
-//    }
-//  }
-//}
-//
-///*
-// * Implements hook_preprocess_block().
-// */
-//function webspark_isearch_preprocess_block(&$variables) {
-//  // Check if we have a block entity.
-//  if (isset($variables['content']['#block_content']) && ($block = $variables['content']['#block_content']) &&
-//    isset($variables['derivative_plugin_id']) && $variables['derivative_plugin_id'] == 'isearch') {
-//    // Split the asurite id for the react component.
-//    if (isset($block->field_ids->value) && $asurite_id = $block->field_ids->value) {
-//      // Should be in form: "asuriteId1"-deptid1, "asuriteId2"-deptid2, ...
-//      $persons = explode(",", $asurite_id);
-//      $ids = $sourceIds = [];
-//      foreach ($persons as $person) {
-//        $parts = explode("-", $person);
-//        $ids[] = $parts[0];
-//        $sourceIds[] = $parts[1];
-//      }
-//      $variables['ids'] = implode(",", $ids);
-//      $variables['sourceIds'] = implode(",", $sourceIds);
-//    }
-//    //Set default image.
-//    $module_handler = \Drupal::service('module_handler');
-//    $path_module = $module_handler->getModule('webspark_isearch')->getPath();
-//    $variables['defaultPhoto'] = base_path() . $path_module . '/img/avatar.png';
-//  }
-//}
-//
-//
-//function webspark_webdir_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-//  if ($form_id == 'layout_builder_update_block') {
-//    ddl($form);
-//
-//  }
-//}
+/**
+ * Implements hook_preprocess_HOOK()
+ */
+function webspark_webdir_preprocess_block__web_directory(&$variables) {
+  if (empty($variables['block'])) {
+    return;
+  }
+
+  $blockContent = $variables['block'];
+  if (!($blockContent instanceof BlockContent)) {
+    return;
+  }
+
+  $config = \Drupal::config('webspark_webdir.settings');
+
+  $searchType = '';
+  if ($blockContent->hasField('field_component_type')) {
+    $searchType = $blockContent->field_component_type->value;
+  }
+
+  $peopleSearch = '';
+  if ($blockContent->hasField('field_people_search')) {
+    $peopleSearch = $blockContent->field_people_search->value;
+  }
+
+  $asuriteIds = '';
+  if ($blockContent->hasField('field_asurite_ids')) {
+    $asuriteIds = $blockContent->field_asurite_ids->value;
+  }
+
+  $deptIds = '';
+  if ($blockContent->hasField('field_department_ids')) {
+    $deptIds = $blockContent->field_department_ids->value;
+  }
+
+  $filterEmployee = '';
+  if ($blockContent->hasField('field_filter_employee')) {
+    $filterEmployee = $blockContent->field_filter_employee->value;
+  }
+
+  $filterExpertise = '';
+  if ($blockContent->hasField('field_filter_expertise')) {
+    $filterExpertise = $blockContent->field_filter_expertise->value;
+  }
+
+  $filterTitle = '';
+  if ($blockContent->hasField('field_filter_title')) {
+    $filterTitle = $blockContent->field_filter_title->value;
+  }
+
+  $usePager = TRUE;
+  if ($blockContent->hasField('field_show_title')) {
+    $usePager = $blockContent->field_show_title->value;
+  }
+
+  $profilesPerPage = 20;
+  if ($blockContent->hasField('field_news_items_to_display')) {
+    $profilesPerPage = $blockContent->field_news_items_to_display->value;
+  }
+
+  $defaultSort = '';
+  if ($blockContent->hasField('field_default_sort')) {
+    $defaultSort = $blockContent->field_default_sort->value;
+  }
+
+  $dontDisplayProfiles = '';
+  if ($blockContent->hasField('field_ids')) {
+    $dontDisplayProfiles = $blockContent->field_ids->value;
+  }
+
+
+  $markup = <<<HTML
+<div
+  class="webdir-container"
+  id="webdir-container-{$blockContent->id()}"
+  data-search-type="{$searchType}"
+  data-search-url="{$config->get('api')}"
+  data-people-search="{$peopleSearch}"
+  data-asurite-ids="{$asuriteIds}"
+  data-dept-ids="{$deptIds}"
+  data-filter-employee="{$filterEmployee}"
+  data-filter-expertise="{$filterExpertise}"
+  data-filter-title="{$filterTitle}"
+  data-use-pager="{$usePager}"
+  data-profiles-per-page="{$profilesPerPage}"
+  data-default-sort="{$defaultSort}"
+  data-do-not-display-profiles="{$dontDisplayProfiles}"
+></div>
+HTML;
+
+  $variables['content']['placeholder'] = [
+    '#markup' => $markup,
+  ];
+
+  $variables['#attached']['library'][] = 'webspark_webdir/search-ui';
+
+}

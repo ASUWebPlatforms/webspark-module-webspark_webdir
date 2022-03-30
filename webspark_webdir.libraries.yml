@@ -39,15 +39,30 @@ add_people_field:
 list_field:
   js:
     js/list-field.js: {}
-    
+
 expertise_field:
   js:
     js/expertise-field.js: {}
-    
+
 campus_field:
   js:
     js/campus-field.js: {}
-    
+
 employee_type_field:
   js:
     js/employee-type-field.js: {}
+
+webdir-core:
+  version: 1.0.0
+  dependencies:
+    - asu_react_integration/reactjs
+    - core/jquery
+    - core/drupal
+    - core/once
+search-ui:
+  version: 1.0.0
+  dependencies:
+    - webspark_webdir/webdir-core
+  js:
+    node_modules/@asu-design-system/app-webdir-ui/dist/webdirUI.umd.js: {}
+    js/webspark_webdir.js: {}
