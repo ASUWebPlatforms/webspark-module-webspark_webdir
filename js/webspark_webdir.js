@@ -1,4 +1,4 @@
-(function ($, Drupal, drupalSettings, once) {
+(function ($, Drupal, once) {
 
   Drupal.behaviors.webSparkWebDir = {
     attach: function (context, settings) {
@@ -37,4 +37,4 @@
       });
     }
   };
-})(jQuery, Drupal, drupalSettings, once);
+})(jQuery, Drupal, once);
