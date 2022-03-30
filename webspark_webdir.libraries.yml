@@ -58,6 +58,7 @@ webdir-core:
     - asu_react_integration/reactjs
     - core/jquery
     - core/drupal
+    - core/drupalSettings
     - core/once
 search-ui:
   version: 1.0.0
