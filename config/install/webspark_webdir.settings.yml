@@ -1,10 +1,10 @@
 api: ''
 departments: webdir-departments
-people_departments: webdir-people-in-department
-people_search: webdir-search-faculty-staff
-people_data: webdir-profiles-by-department
-people_department: webdir-people-in-department
-profile_affiliations: webdir-faculty-profile-affiliations
+people_departments: webdir-departments/webdir-profiles
+people_search: webdir-profiles/faculty-staff
+people_data: webdir-profiles/department
+people_department: webdir-departments/webdir-profiles
+profile_affiliations: webdir-affiliations
 employee_types: webdir-employee-types
 expertise_areas: webdir-expertise-areas
-filtered_people_department: webdir-faculty-staff-by-filters
+filtered_people_department: webdir-profiles/faculty-staff/filtered
