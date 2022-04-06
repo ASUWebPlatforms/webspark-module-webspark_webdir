@@ -1,9 +1,9 @@
 api: ''
 departments: webdir-departments
-people_departments: webdir-departments/webdir-profiles
+people_departments: webdir-departments/profiles
 people_search: webdir-profiles/faculty-staff
 people_data: webdir-profiles/department
-people_department: webdir-departments/webdir-profiles
+people_department: webdir-departments/profiles
 profile_affiliations: webdir-affiliations
 employee_types: webdir-employee-types
 expertise_areas: webdir-expertise-areas
