@@ -99,7 +99,7 @@ class WebdirController extends ControllerBase {
    * @return string
    */
   public function campuses() {
-    $service = \Drupal::service('asu_degree_rfi_data_potluck_client');
+    $service = \Drupal::service('webspark_webdir.data_potluck_client');
 
     return new JsonResponse($service->campuses());
   }
