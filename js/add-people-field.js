@@ -122,6 +122,11 @@ function createChildren(node, existing, json) {
 function getAffiliations(node, existing) {
   var query = "?asurite_id=" + node.id + "&size=20";
   $.getJSON("/profile-affiliations" + query, function(json) {
+    if (Array.isArray(json) && !json.length) {
+      // Empty data.
+      return;
+    }
+
     converted_json = createChildren(node, existing, json);
 
     if (node.children.length == 0) {
