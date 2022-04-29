@@ -15,7 +15,8 @@
       elements.forEach((value, index) => {
         props = {
           searchType: value.dataset.searchType,
-          searchURL: value.dataset.searchUrl,
+          API_URL: value.dataset.searchUrl.replace(/\/$/, '') + '/',
+          searchApiVersion: value.dataset.searchApiVersion.replace(/^\/|\/$/g, '') + '/',
           loggedIn: $loggedIn,
           peopleSearch: value.dataset.peopleSearch,
           ids: value.dataset.asuriteIds,

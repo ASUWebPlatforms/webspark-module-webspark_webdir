@@ -79,6 +79,7 @@ function webspark_webdir_preprocess_block__web_directory(&$variables) {
   id="webdir-container-{$blockContent->id()}"
   data-search-type="{$searchType}"
   data-search-url="{$config->get('api')}"
+  data-search-api-version="{$config->get('api_version')}"
   data-people-search="{$peopleSearch}"
   data-asurite-ids="{$asuriteIds}"
   data-dept-ids="{$deptIds}"
