@@ -27,6 +27,14 @@ class WebdirConfigForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#title' => $this->t('API URL'),
       '#default_value' => $config->get('api'),
+      '#description' => $this->t('URL to Web Directory API. Example: https://search.asu.edu'),
+    ];
+
+    $form['api_version'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('API Version'),
+      '#default_value' => $config->get('api_version') ?? '/api/v1/',
+      '#description' => $this->t('API Version path. Example: /api/v1/'),
     ];
 
     $form['departments'] = [
@@ -86,6 +94,7 @@ class WebdirConfigForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = $this->config('webspark_webdir.settings');
     $config->set('api', $form_state->getValue('api'));
+    $config->set('api_version', $form_state->getValue('api_version'));
     $config->set('departments', $form_state->getValue('departments'));
     $config->set('people_department', $form_state->getValue('people_department'));
     $config->set('filtered_people_department', $form_state->getValue('filtered_people_department'));

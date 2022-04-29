@@ -1,4 +1,5 @@
-api: 'https://live-asu-isearch.ws.asu.edu/api/v1/'
+api: 'https://live-asu-isearch.ws.asu.edu'
+api_version: '/api/v1/'
 departments: webdir-departments
 people_departments: webdir-departments/profiles
 people_search: webdir-profiles/faculty-staff

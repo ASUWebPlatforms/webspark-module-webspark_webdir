@@ -1,16 +1,3 @@
-webdir:
-  version: 1.x
-  header: false
-  js:
-    node_modules/asu-react-isearch-view/dist/drupalIsearchViewer.js: { weight: -5 }
-  css:
-    theme:
-      css/clas_isearch_view.css: {}
-  dependencies:
-    - core/jquery
-    - core/drupalSettings
-    - asu_react_integration/reactjs
-
 jstree:
   version: 1.x
   css:

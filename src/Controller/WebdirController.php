@@ -3,6 +3,7 @@
 namespace Drupal\webspark_webdir\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\webspark_webdir\WebdirApiUrl;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
@@ -17,6 +18,7 @@ class WebdirController extends ControllerBase {
   public function __construct() {
     $this->settings = \Drupal::config('webspark_webdir.settings');
     $this->client = \Drupal::httpClient();
+    $this->api_url = new WebdirApiUrl;
   }
   
   /**
@@ -24,7 +26,7 @@ class WebdirController extends ControllerBase {
    */
   public function departments() {
     // Build the departments URL.
-    $url = $this->settings->get('api') . $this->settings->get('departments');
+    $url = $this->api_url->getUrlBase() . $this->settings->get('departments');
     
     return $this->retriveJsonFromService($url);
   }
@@ -34,7 +36,7 @@ class WebdirController extends ControllerBase {
    */
   public function peopleInDepartment() {
     // Build the departments URL.
-    $url = $this->settings->get('api') . $this->settings->get('people_department');
+    $url = $this->api_url->getUrlBase() . $this->settings->get('people_department');
     $query = \Drupal::request()->getQueryString();
     
     return $this->retriveJsonFromService($url, $query);
@@ -47,7 +49,7 @@ class WebdirController extends ControllerBase {
     // Build the departments URL.
     $data = \Drupal::request()->getContent();
     
-    $url = $this->settings->get('api') . $this->settings->get('people_data');
+    $url = $this->api_url->getUrlBase() . $this->settings->get('people_data');
     
     return $this->retriveJsonFromServicePost($url, $data);
   }
@@ -57,7 +59,7 @@ class WebdirController extends ControllerBase {
    */
   public function searchStaff() {
     
-    $url = $this->settings->get('api') . $this->settings->get('people_search');
+    $url = $this->api_url->getUrlBase() . $this->settings->get('people_search');
     $query = \Drupal::request()->getQueryString();
     
     return $this->retriveJsonFromService($url, $query);
@@ -68,7 +70,7 @@ class WebdirController extends ControllerBase {
    * @return string
    */
   public function profileAffiliations() {
-    $url = $this->settings->get('api') . $this->settings->get('profile_affiliations');
+    $url = $this->api_url->getUrlBase() . $this->settings->get('profile_affiliations');
     $query = \Drupal::request()->getQueryString();
     
     return $this->retriveJsonFromService($url, $query);
@@ -79,7 +81,7 @@ class WebdirController extends ControllerBase {
    * @return string
    */
   public function employeeTypes() {
-    $url = $this->settings->get('api') . $this->settings->get('employee_types');
+    $url = $this->api_url->getUrlBase() . $this->settings->get('employee_types');
     
     return $this->retriveJsonFromService($url);
   }
@@ -89,7 +91,7 @@ class WebdirController extends ControllerBase {
    * @return string
    */
   public function expertiseAreas() {
-    $url = $this->settings->get('api') . $this->settings->get('expertise_areas');
+    $url = $this->api_url->getUrlBase() . $this->settings->get('expertise_areas');
     
     return $this->retriveJsonFromService($url);
   }
@@ -109,7 +111,7 @@ class WebdirController extends ControllerBase {
    */
   public function filteredPeopleInDepartment() {
     // Build the departments URL.
-    $url = $this->settings->get('api') . $this->settings->get('filtered_people_department');
+    $url = $this->api_url->getUrlBase() . $this->settings->get('filtered_people_department');
     $query = \Drupal::request()->getQueryString();
     
     return $this->retriveJsonFromService($url, $query);
