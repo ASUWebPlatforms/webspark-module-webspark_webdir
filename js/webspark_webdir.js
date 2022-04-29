@@ -34,7 +34,6 @@
           }
         };
 
-        console.log(props, 'PROPS');
         webdirUI.initWebDirectory({
           targetSelector: "#" + value.id,
           props: props,
