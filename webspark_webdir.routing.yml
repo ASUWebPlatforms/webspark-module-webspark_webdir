@@ -5,74 +5,74 @@ webdir.settings:
     _title: 'Web Directory Settings'
   requirements:
     _permission: 'administer site configuration'
-    
+
 webdir.directory:
-  path: '/departments'
+  path: '/endpoint/departments'
   defaults:
     _controller: '\Drupal\webspark_webdir\Controller\WebdirController::departments'
     _title: 'Departments'
   requirements:
     _permission: 'access content'
-    
+
 webdir.people_in_department:
-  path: '/people-in-department'
+  path: '/endpoint/people-in-department'
   defaults:
     _controller: '\Drupal\webspark_webdir\Controller\WebdirController::peopleInDepartment'
     _title: 'People in department'
   requirements:
     _permission: 'access content'
-    
+
 webdir.filtered_people_in_department:
-  path: '/filtered-people-in-department'
+  path: '/endpoint/filtered-people-in-department'
   defaults:
     _controller: '\Drupal\webspark_webdir\Controller\WebdirController::filteredPeopleInDepartment'
     _title: 'People in department by filter'
   requirements:
     _permission: 'access content'
-    
+
 webdir.profiles_by_department:
-  path: '/profiles-by-department'
+  path: '/endpoint/profiles-by-department'
   methods:  [POST]
   defaults:
     _controller: '\Drupal\webspark_webdir\Controller\WebdirController::profilesByDepartment'
     _title: 'Profiles by department'
   requirements:
     _permission: 'access content'
-    
+
 webdir.search_staff:
-  path: '/search-staff'
+  path: '/endpoint/search-staff'
   defaults:
     _controller: '\Drupal\webspark_webdir\Controller\WebdirController::searchStaff'
     _title: 'Search staff'
   requirements:
     _permission: 'access content'
-    
+
 webdir.profile_affiliations:
-  path: '/profile-affiliations'
+  path: '/endpoint/profile-affiliations'
   defaults:
     _controller: '\Drupal\webspark_webdir\Controller\WebdirController::profileAffiliations'
     _title: 'Profile Affiliations'
   requirements:
     _permission: 'access content'
-    
+
 webdir.expertise_areas:
-  path: '/expertise-areas'
+  path: '/endpoint/expertise-areas'
   defaults:
     _controller: '\Drupal\webspark_webdir\Controller\WebdirController::expertiseAreas'
     _title: 'Expertise Areas'
   requirements:
     _permission: 'access content'
-    
+
 webdir.employee_types:
-  path: '/employee-types'
+  path: '/endpoint/employee-types'
   defaults:
     _controller: '\Drupal\webspark_webdir\Controller\WebdirController::employeeTypes'
     _title: 'Employee Types'
   requirements:
     _permission: 'access content'
-    
+
 webdir.campuses:
-  path: '/campuses'
+  path: '/endpoint/campuses'
   defaults:
     _controller: '\Drupal\webspark_webdir\Controller\WebdirController::campuses'
     _title: 'Campuses'

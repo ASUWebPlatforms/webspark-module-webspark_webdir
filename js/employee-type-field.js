@@ -12,7 +12,7 @@
           }
           catch (e) {}
           var tree_target_obj = $(this).siblings('#employee-type-tree-options');
-          $.getJSON("/employee-types", function(json) {
+          $.getJSON("/endpoint/employee-types", function(json) {
             // Convert and check the default values.
             converted_json = convert_dir(json, default_values);
             // Add the jstree to the object.
@@ -60,7 +60,7 @@ function convert_dir(data, default_values) {
     if (default_values.includes(element.name.toString())) {
       new_element.state = {'selected' : true};
     }
-    
+
     siblings.push(new_element);
   });
 

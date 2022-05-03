@@ -14,7 +14,7 @@
           }
           catch (e) {}
           initialize_tree(values);
-          
+
           // Add people form Asurie Add field.
           $("#asurite-add-options").on("select_node.jstree", function (e, data) {
             // Get the existing values
@@ -26,7 +26,7 @@
               update_tree(default_values);
             }
           });
-          
+
           // Add people from Search.
           $("#asurite-add-people-options").on("select_node.jstree", function (e, data) {
             if (data.node.id.includes(":")) {
@@ -40,7 +40,7 @@
               }
             }
           });
-          
+
           // Remove people on click.
           $("#asurite-tree-options").on("select_node.jstree", function (e, data) {
             // Get the existing values
@@ -56,17 +56,17 @@
       }
     }
   };
-  
+
   function build_post_data(values) {
     var postData = {'profiles': []};
     for (const pair of values) {
       const pairValues = pair.split(":");
       postData.profiles.push({"asurite_id": pairValues[0], "dept_id": pairValues[1]});
     }
-    
+
     return postData;
   }
-  
+
   // Create the asurite id checkboxes.
   function initialize_tree(values) {
     // Add the values to the actual field.
@@ -74,7 +74,7 @@
     // Build the post data.
     var postData = build_post_data(values);
     // Call the API to get the information.
-    $.post("/profiles-by-department", JSON.stringify(postData), function(data) {
+    $.post("/endpoint/profiles-by-department", JSON.stringify(postData), function(data) {
       converted_json = convert_asurite_to_tree(data);
 
       $('#asurite-tree-options').jstree({
@@ -91,11 +91,11 @@
         },
         "plugins" : [ "types" ]
       });
-      
+
     }, "json");
-    
+
   }
-  
+
   // Create the asurite id checkboxes.
   function update_tree(values) {
     // Add the values to the actual field.
@@ -103,17 +103,17 @@
     // Build the post data.
     var postData = build_post_data(values);
     // Call the API to get the information.
-    $.post("/profiles-by-department", JSON.stringify(postData), function(data) {
+    $.post("/endpoint/profiles-by-department", JSON.stringify(postData), function(data) {
       converted_json = convert_asurite_to_tree(data);
       $('#asurite-tree-options').jstree(true).settings.core.data = converted_json;
       $('#asurite-tree-options').jstree(true).refresh();
     });
   }
-  
+
   // Convert the json from the asuriteid to be compatible with the jstree.
   function convert_asurite_to_tree(data) {
     var result = [];
-    
+
     $(data).each(function (i, element) {
       if (element.asurite_id) {
         var new_element = {};
@@ -126,7 +126,7 @@
     });
     return result;
   }
-  
-  
+
+
 
 })(jQuery, Drupal, drupalSettings);

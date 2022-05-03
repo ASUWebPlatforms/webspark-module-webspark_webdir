@@ -67,7 +67,7 @@ function convert_asurite_to_tree(data, departments) {
     });
     result = result.concat(sorted);
   });
-  
+
   return result;
 }
 
@@ -76,14 +76,14 @@ function getDepartmentData($data, $deptId) {
   var result = [];
   result['name'] = 'Department Name' + $deptId;
   result['title'] = 'Department Title' + $deptId;
-  
+
   return result;
 }
 
 // Prepare parameters for the asurite id solr call.
 function createCallParams(departments, campuses, expertise, empoyeeTypes, titles) {
   var filters = '';
-  
+
   // Add departments.
   filters = filters + "?dept_ids=" + departments.join(',');
   // Add campuses
@@ -102,7 +102,7 @@ function createCallParams(departments, campuses, expertise, empoyeeTypes, titles
   if (titles.length > 0) {
     filters = filters + "&title=" + titles.join(',');
   }
-  
+
   return filters;
 }
 
@@ -133,10 +133,10 @@ function update_tree() {
   const expertise = $(".expertise-tree").val().split('|');
   const empoyeeTypes = $(".employee-type-tree").val().split('|');
   const titles = $(".field--name-field-filter-title textarea").val().split('\n');
-  
+
   const query = createCallParams(departments, campuses, expertise, empoyeeTypes, titles);
-  
-  $.getJSON("/filtered-people-in-department"+query, function(json) {
+
+  $.getJSON("/endpoint/filtered-people-in-department"+query, function(json) {
     // Get existing data.
     converted_json = convert_asurite_to_tree(json.results, departments);
     $('#asurite-list-options').jstree(true).settings.core.data = converted_json;
