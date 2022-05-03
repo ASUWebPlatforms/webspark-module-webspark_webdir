@@ -12,7 +12,7 @@
             // Update the tree.
             update_tree();
           });
-          
+
           // Add people form Asurie Add field.
           $("#asurite-add-options").on("select_node.jstree", function (e, data) {
             // Get the existing values
@@ -22,7 +22,7 @@
             // Recreate tree with the default values.
             update_tree(default_values);
           });
-          
+
           // Refresh when a person was removed from the list.
           $("#asurite-tree-options").on("select_node.jstree", function (e, data) {
             // Update the tree.
@@ -40,11 +40,11 @@ function convert_asurite_to_tree(data, departments, existing_values) {
   $(data).each(function (i, element) {
     $(element.deptids.raw).each(function (j, deptid) {
       var new_element = {};
-      if (departments.includes(deptid) && 
+      if (departments.includes(deptid) &&
           !existing_values.includes(element.asurite_id.raw + ':' + deptid)) {
-        
+
         var department_data = getDepartmentData(element, deptid);
-        
+
         new_element.id = element.asurite_id.raw + ':' + deptid;
         // Remove maybe.
         new_element.sort = element.last_name.raw;
@@ -66,7 +66,7 @@ function convert_asurite_to_tree(data, departments, existing_values) {
     });
     result = result.concat(sorted);
   });
-  
+
   return result;
 }
 
@@ -75,7 +75,7 @@ function getDepartmentData($data, $deptId) {
   var result = [];
   result['name'] = 'Department Name' + $deptId;
   result['title'] = 'Department Title' + $deptId;
-  
+
   return result;
 }
 
@@ -88,7 +88,7 @@ function createCallParams(ids) {
 function initialize_tree() {
   var departments = $(".directory-tree").val().split(',');
   var query = createCallParams(departments);
-  $.getJSON("/people-in-department"+query, function(json) {
+  $.getJSON("/endpoint/people-in-department"+query, function(json) {
     var existing_values = $('.asurite-tree').val().split(',');
     converted_json = convert_asurite_to_tree(json.results, departments, existing_values);
     $('#asurite-add-options') // listen for event
@@ -113,7 +113,7 @@ function update_tree() {
   var departments = $( ".directory-tree" ).val().split(',');
 //  var departments = ['1661','1374'];
   var query = createCallParams(departments);
-  $.getJSON("/people-in-department"+query, function(json) {
+  $.getJSON("/endpoint/people-in-department"+query, function(json) {
     // Get existing data.
     var existing_values = $('.asurite-tree').val().split(',');
     converted_json = convert_asurite_to_tree(json.results, departments, existing_values);

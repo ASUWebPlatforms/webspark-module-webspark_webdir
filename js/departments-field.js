@@ -12,7 +12,7 @@
           }
           catch (e) {}
           var tree_target_obj = $(this).siblings('#directory-tree-options');
-          $.getJSON("/departments", function(json) {
+          $.getJSON("/endpoint/departments", function(json) {
             // Convert and check the default values.
             converted_json = convert_dir(json, default_values);
             // Add the jstree to the object.

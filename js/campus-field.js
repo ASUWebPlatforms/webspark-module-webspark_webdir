@@ -12,7 +12,7 @@
           }
           catch (e) {}
           var tree_target_obj = $(this).siblings('#campus-tree-options');
-          $.getJSON("/campuses", function(json) {
+          $.getJSON("/endpoint/campuses", function(json) {
             // Convert and check the default values.
             converted_json = convert_dir(json, default_values);
             // Add the jstree to the object.
@@ -53,7 +53,7 @@
 // Convert the json from the campus to be compatible with the jstree.
 function convert_dir(data, default_values) {
   var siblings = [];
-  
+
   Object.keys(data).forEach(campusID => {
     var new_element = {};
     new_element.id = campusID;
@@ -61,7 +61,7 @@ function convert_dir(data, default_values) {
     if (default_values.includes(campusID.toString())) {
       new_element.state = {'selected' : true};
     }
-    
+
     siblings.push(new_element);
   });
 

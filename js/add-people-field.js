@@ -8,7 +8,7 @@
         $('.asurite-add-people').each(function(index) {
           // Convert and check the default values.
           initialize_tree();
-          
+
           let search_timeout = null;
           $(".field--name-field-people-search input").keyup(function() {
               var value = this.value;
@@ -23,7 +23,7 @@
                 // Empty the results.
               }
           });
-          
+
           // On node click, get all departments and update the tree.
           $("#asurite-add-people-options").on("select_node.jstree", function (e, data) {
             var existing = $(this).jstree(true).settings.core.data;
@@ -54,7 +54,7 @@ function convert_to_tree(data, expanded) {
   result.sort(function(a, b){
     return (a["sort"] < b["sort"]) ? -1 : (a["sort"] > b["sort"]) ? 1 : 0;
   });
-  
+
   return result;
 }
 
@@ -84,7 +84,7 @@ function initialize_tree() {
 
 function searchPeople(queryString) {
   var query = "?query=" + queryString + "&size=20";
-  $.getJSON("/search-staff" + query, function(json) {
+  $.getJSON("/endpoint/search-staff" + query, function(json) {
     // Get existing data.
     converted_json = convert_to_tree(json.results);
     update_tree(converted_json);
@@ -95,7 +95,7 @@ function createChildren(node, existing, json) {
   // Create the children.
   var children = [];
   Object.keys(json).forEach(deptID => {
-    
+
     var new_element = {};
     new_element.id = node.id + ":" + deptID;
     new_element.text = json[deptID].dept_name + ', ' + json[deptID].name;
@@ -103,7 +103,7 @@ function createChildren(node, existing, json) {
 
     children.push(new_element);
   });
-  
+
   // Add the children.
   var results = [];
   for (const treeNode of existing) {
@@ -113,7 +113,7 @@ function createChildren(node, existing, json) {
     }
     results.push(treeNode);
   }
-  
+
   return results;
 }
 /*
@@ -121,7 +121,7 @@ function createChildren(node, existing, json) {
  */
 function getAffiliations(node, existing) {
   var query = "?asurite_id=" + node.id + "&size=20";
-  $.getJSON("/profile-affiliations" + query, function(json) {
+  $.getJSON("/endpoint/profile-affiliations" + query, function(json) {
     if (Array.isArray(json) && !json.length) {
       // Empty data.
       return;
