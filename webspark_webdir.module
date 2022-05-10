@@ -42,6 +42,11 @@ function webspark_webdir_preprocess_block__web_directory(&$variables) {
     $filterEmployee = $blockContent->field_filter_employee->value;
   }
 
+  $filterCampus = '';
+  if ($blockContent->hasField('field_filter_campus')) {
+    $filterCampus = $blockContent->field_filter_campus->value;
+  }
+
   $filterExpertise = '';
   if ($blockContent->hasField('field_filter_expertise')) {
     $filterExpertise = $blockContent->field_filter_expertise->value;
@@ -72,7 +77,6 @@ function webspark_webdir_preprocess_block__web_directory(&$variables) {
     $dontDisplayProfiles = $blockContent->field_ids->value;
   }
 
-
   $markup = <<<HTML
 <div
   class="webdir-container"
@@ -86,6 +90,7 @@ function webspark_webdir_preprocess_block__web_directory(&$variables) {
   data-filter-employee="{$filterEmployee}"
   data-filter-expertise="{$filterExpertise}"
   data-filter-title="{$filterTitle}"
+  data-filter-campuses="{$filterCampus}"
   data-use-pager="{$usePager}"
   data-profiles-per-page="{$profilesPerPage}"
   data-default-sort="{$defaultSort}"
