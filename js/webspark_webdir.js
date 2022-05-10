@@ -24,7 +24,8 @@
           filters: {
             employee: value.dataset.filterEmployee,
             expertise: value.dataset.filterExpertise,
-            title: value.dataset.filterTitle
+            title: value.dataset.filterTitle,
+            campuses: value.dataset.filterCampuses
           },
           display: {
             defaultSort: value.dataset.defaultSort,
