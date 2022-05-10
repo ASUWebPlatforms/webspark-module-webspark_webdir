@@ -71,11 +71,10 @@ function convert_asurite_to_tree(data, departments) {
   return result;
 }
 
-// @TODO Mark is going to build similar functionality. Replace this when that is done.
 function getDepartmentData($data, $deptId) {
   var result = [];
-  result['name'] = 'Department Name' + $deptId;
-  result['title'] = 'Department Title' + $deptId;
+  result['name'] = $data.departments.raw[0];
+  result['title'] = $data.titles.raw[0];
 
   return result;
 }
