@@ -7,3 +7,7 @@
 .jstree-anchor.jstree-disabled {
   color: #000000;
 }
+
+#drupal-off-canvas .uds-form .description.text-muted {
+  color: inherit !important;
+}
