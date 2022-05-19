@@ -8,7 +8,7 @@ id: block_content.web_directory.field_department_ids
 field_name: field_department_ids
 entity_type: block_content
 bundle: web_directory
-label: 'Department ids'
+label: 'Departments'
 description: ''
 required: false
 translatable: false

@@ -31,7 +31,7 @@ class WebdirDepartmentsWidget extends WidgetBase {
       '#attributes' => array('class' => array('directory-tree')),
       '#prefix' => '<div id="directory-tree-options" style="width: 100%"></div>',
     ];
-    
+
     // Add the required libraries.
     $element['#attached']['library'][] = 'webspark_webdir/jstree';
     $element['#attached']['library'][] = 'webspark_webdir/departments_field';
@@ -39,7 +39,7 @@ class WebdirDepartmentsWidget extends WidgetBase {
     $element += array(
       '#type' => 'details',
       '#attributes' => array('class' => array('container-inline')),
-      '#open' => FALSE,
+      '#open' => TRUE,
     );
     return $element;
   }

@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Web Directory Component module.
+ */
+
+/**
+ * Updates the Department field label (ASUIS-474).
+ */
+function webspark_webdir_update_9001(&$sandbox) {
+  $module_cfg = \Drupal::configFactory()
+    ->getEditable('field.field.block_content.web_directory.field_department_ids');
+
+  $module_cfg->set('label', 'Departments')->save();
+}
