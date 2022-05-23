@@ -8,7 +8,8 @@
 /**
  * Updates the Department field label (ASUIS-474).
  */
-function webspark_webdir_update_9001(&$sandbox) {
+function webspark_webdir_update_9001(&$sandbox)
+{
   $module_cfg = \Drupal::configFactory()
     ->getEditable('field.field.block_content.web_directory.field_department_ids');
 
@@ -45,4 +46,30 @@ function webspark_webdir_update_9002(&$sandbox) {
   $module_cfg->clear($key2);
 
   $module_cfg->save();
+}
+
+/**
+ * Updates the filter fields descriptions (ASUIS-492).
+ */
+function webspark_webdir_update_9003(&$sandbox)
+{
+  $module_cfg_title = \Drupal::configFactory()
+    ->getEditable('field.field.block_content.web_directory.field_filter_title');
+  $module_cfg_title->set('description', '<i><small>Add one title per row. Title match is case-sensitive. Profiles displayed must match one of these titles.</small></i>')
+    ->save();
+
+  $module_cfg_campus = \Drupal::configFactory()
+    ->getEditable('field.field.block_content.web_directory.field_filter_campus');
+  $module_cfg_campus->set('description', '<i><small>Only display profiles with a primary job campus matching one of these campuses.</small></i>')
+    ->save();
+
+  $module_cfg_employee = \Drupal::configFactory()
+    ->getEditable('field.field.block_content.web_directory.field_filter_employee');
+  $module_cfg_employee->set('description', '<i><small>Only display profiles with a primary employee class matching one of these employee types.</small></i>')
+    ->save();
+
+  $module_cfg_expertise = \Drupal::configFactory()
+    ->getEditable('field.field.block_content.web_directory.field_filter_expertise');
+  $module_cfg_expertise->set('description', '<i><small>Display profiles with at least one matching expertise area.</small></i>')
+    ->save();
 }
