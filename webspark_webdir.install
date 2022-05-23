@@ -17,9 +17,41 @@ function webspark_webdir_update_9001(&$sandbox)
 }
 
 /**
+ * Removes field form conditions (ASUIS-501).
+ */
+function webspark_webdir_update_9002(&$sandbox) {
+  $module_cfg = \Drupal::configFactory()
+    ->getEditable('core.entity_form_display.block_content.web_directory.default');
+  $keys = [
+    'content',
+    'field_component_type',
+    'third_party_settings',
+    'field_states_ui',
+  ];
+
+  $keys1 = $keys;
+
+  $keys1[] = 'form';
+  $keys1[] = 'list';
+
+  $key1 = implode('.', $keys1);
+
+  $module_cfg->set($key1, '');
+
+  $keys2 = $keys;
+  $keys2[] = 'field_states';
+
+  $key2 = implode('.', $keys2);
+
+  $module_cfg->clear($key2);
+
+  $module_cfg->save();
+}
+
+/**
  * Updates the filter fields descriptions (ASUIS-492).
  */
-function webspark_webdir_update_9002(&$sandbox)
+function webspark_webdir_update_9003(&$sandbox)
 {
   $module_cfg_title = \Drupal::configFactory()
     ->getEditable('field.field.block_content.web_directory.field_filter_title');
