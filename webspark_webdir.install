@@ -6,6 +6,17 @@
  */
 
 /**
+ * Updates the Department field label (ASUIS-474).
+ */
+function webspark_webdir_update_9001(&$sandbox)
+{
+  $module_cfg = \Drupal::configFactory()
+    ->getEditable('field.field.block_content.web_directory.field_department_ids');
+
+  $module_cfg->set('label', 'Departments')->save();
+}
+
+/**
  * Updates the filter fields descriptions (ASUIS-492).
  */
 function webspark_webdir_update_9002(&$sandbox)
@@ -29,15 +40,4 @@ function webspark_webdir_update_9002(&$sandbox)
     ->getEditable('field.field.block_content.web_directory.field_filter_expertise');
   $module_cfg_expertise->set('description', '<i><small>Display profiles with at least one matching expertise area.</small></i>')
     ->save();
-}
-
-/**
- * Updates the Department field label (ASUIS-474).
- */
-function webspark_webdir_update_9001(&$sandbox)
-{
-  $module_cfg = \Drupal::configFactory()
-    ->getEditable('field.field.block_content.web_directory.field_department_ids');
-
-  $module_cfg->set('label', 'Departments')->save();
 }
