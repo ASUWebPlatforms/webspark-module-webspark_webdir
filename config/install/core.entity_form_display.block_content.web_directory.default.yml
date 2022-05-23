@@ -78,33 +78,8 @@ content:
       field_states_ui:
         form:
           type: ''
-          list:
-            f7b79c71-6cce-4431-b5bf-efbe4a48c76b:
-              operations:
-                edit: Edit
-                delete: Delete
-            784468d7-7681-49c5-8d64-c950d82f6fb3:
-              operations:
-                edit: Edit
-                delete: Delete
+          list: ''
           add: Add
-        field_states:
-          f7b79c71-6cce-4431-b5bf-efbe4a48c76b:
-            uuid: f7b79c71-6cce-4431-b5bf-efbe4a48c76b
-            id: disabled
-            data:
-              target: field_department_ids
-              comparison: filled
-              value: ''
-              submit: 'Add Cancel'
-          784468d7-7681-49c5-8d64-c950d82f6fb3:
-            uuid: 784468d7-7681-49c5-8d64-c950d82f6fb3
-            id: disabled
-            data:
-              target: field_asurite_ids
-              comparison: filled
-              value: ''
-              submit: 'Add Cancel'
     type: options_select
     region: content
   field_default_sort:
