@@ -9,7 +9,7 @@ field_name: field_filter_employee
 entity_type: block_content
 bundle: web_directory
 label: 'Filter by employee type'
-description: ''
+description: '<i><small>Only display profiles with a primary employee class matching one of these employee types.</small></i>'
 required: false
 translatable: false
 default_value: {  }
