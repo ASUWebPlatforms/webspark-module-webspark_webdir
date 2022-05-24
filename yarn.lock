@@ -9,10 +9,10 @@
   dependencies:
     "@jridgewell/trace-mapping" "^0.3.0"
 
-"@asu-design-system/app-webdir-ui@1.23.0":
-  version "1.23.0"
-  resolved "https://registry.web.asu.edu/@asu-design-system%2fapp-webdir-ui/-/app-webdir-ui-1.23.0.tgz#54c9663c24e5716af6099c4b40fc40b8d635697e"
-  integrity sha512-e7PXExM5eBW8bHz6ffqZIpB3Xjaa5ZAXt6kY0p4/Wui0tA+Nt9tFBxss4fHGDUc2XZus5DFAu5XUM0SLcpPF4A==
+"@asu-design-system/app-webdir-ui@1.23.1":
+  version "1.23.1"
+  resolved "https://registry.web.asu.edu/@asu-design-system%2fapp-webdir-ui/-/app-webdir-ui-1.23.1.tgz#5222c4add747dbaa178102960814f22a6e7aa8e4"
+  integrity sha512-6gjf+e+r+lBOMKEezi8k+K3qLV5KmByyLYC/Y1rE0O3ewx7HLIqtL4RwTCPbOzFxHyb66mrmaPNZMK0xmGJSlw==
   dependencies:
     "@asu-design-system/component-carousel" "^1.8.3"
     "@asu-design-system/components-core" "^1.0.0"
