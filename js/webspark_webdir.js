@@ -35,6 +35,7 @@
             profilesPerPage: value.dataset.profilesPerPage,
             doNotDisplayProfiles: value.dataset.doNotDisplayProfiles,
           },
+          appPathFolder: value.dataset.appPathFolder,
         };
 
         webdirUI.initWebDirectory({
