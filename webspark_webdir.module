@@ -5,7 +5,8 @@ use Drupal\block_content\Entity\BlockContent;
 /**
  * Implements hook_preprocess_HOOK()
  */
-function webspark_webdir_preprocess_block__web_directory(&$variables) {
+function webspark_webdir_preprocess_block__web_directory(&$variables)
+{
   if (empty($variables['block'])) {
     return;
   }
@@ -77,6 +78,8 @@ function webspark_webdir_preprocess_block__web_directory(&$variables) {
     $dontDisplayProfiles = $blockContent->field_ids->value;
   }
 
+  $appPathFolder = \Drupal::service('webspark_webdir.helper_functions')->getAppPathFolder('app-webdir-ui');
+
   $markup = <<<HTML
 <div
   class="webdir-container"
@@ -95,6 +98,7 @@ function webspark_webdir_preprocess_block__web_directory(&$variables) {
   data-profiles-per-page="{$profilesPerPage}"
   data-default-sort="{$defaultSort}"
   data-do-not-display-profiles="{$dontDisplayProfiles}"
+  data-app-path-folder="{$appPathFolder}"
 ></div>
 HTML;
 
@@ -103,5 +107,4 @@ HTML;
   ];
 
   $variables['#attached']['library'][] = 'webspark_webdir/search-ui';
-
 }
