@@ -9,6 +9,9 @@ node_modules/@asu-design-system/app-webdir-ui/*
 !node_modules/@asu-design-system/app-webdir-ui/dist
 node_modules/@asu-design-system/app-webdir-ui/dist/*
 !node_modules/@asu-design-system/app-webdir-ui/dist/webdirUI.umd.js
+!node_modules/@asu-design-system/app-webdir-ui/dist/img
+node_modules/@asu-design-system/app-webdir-ui/dist/img/*
+!node_modules/@asu-design-system/app-webdir-ui/dist/img/anon.png
 
 /yarn-error.log
 
