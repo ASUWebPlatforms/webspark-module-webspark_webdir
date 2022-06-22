@@ -28,6 +28,19 @@
             // Update the tree.
             update_tree();
           });
+
+          // Hide sort options for the Departmens component type.
+          // @see https://asudev.jira.com/browse/ASUIS-574
+          $(".form-item-settings-block-form-field-component-type select", context).on('change', function() {
+            let componentType = $(this).find(":selected", context).val();
+            if (componentType == 'departments') {
+              let sort = $(".form-item-settings-block-form-field-default-sort select", context);
+              sort.each(function () {
+                $(this).find("option[value='last_name'", context).remove();
+                $(this).find("option[value='people_order'", context).remove();
+              });
+            }
+          });
         });
       }
     }
