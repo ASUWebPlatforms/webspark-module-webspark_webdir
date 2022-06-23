@@ -29,17 +29,26 @@
             update_tree();
           });
 
-          // Hide sort options for the Departmens component type.
+          // Hide "Web Directory customized sort" option by conditions.
           // @see https://asudev.jira.com/browse/ASUIS-574
-          $(".form-item-settings-block-form-field-component-type select", context).on('change', function() {
+          $(
+            ".form-item-settings-block-form-field-component-type select",
+            context
+          ).on("change", function () {
             let componentType = $(this).find(":selected", context).val();
-            if (componentType == 'departments') {
-              let sort = $(".form-item-settings-block-form-field-default-sort select", context);
-              sort.each(function () {
-                $(this).find("option[value='last_name'", context).remove();
-                $(this).find("option[value='people_order'", context).remove();
-              });
-            }
+            let sortOptions = $(
+              ".form-item-settings-block-form-field-default-sort select option",
+              context
+            );
+            sortOptions.each(function () {
+              let val = $(this).val();
+              if (componentType !== "departments" && val === "webdir_customized") {
+                $(this).hide();
+              }
+              else {
+                $(this).show();
+              }
+            });
           });
         });
       }
