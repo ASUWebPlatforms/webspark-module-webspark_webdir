@@ -22,7 +22,7 @@
                 for(i = 0, j = data.selected.length; i < j; i++) {
                   r.push(data.instance.get_node(data.selected[i]).id);
                 }
-                $(this).siblings(".expertise-tree").val(r.join('|')).trigger('change');
+                $(this).siblings(".expertise-tree").val(r.join(',')).trigger('change');
               })
             .jstree({
               'core' : {
