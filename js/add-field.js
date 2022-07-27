@@ -44,12 +44,16 @@
           !existing_values.includes(element.asurite_id.raw + ':' + deptid)) {
 
           var department_data = getDepartmentData(element, deptid);
+          let title = department_data['title'];
+          if (title == null) {
+            title = element.primary_title.raw[0];
+          }
 
           new_element.id = element.asurite_id.raw + ':' + deptid;
           // Remove maybe.
           new_element.sort = element.last_name.raw;
           new_element.text = element.display_name.raw + ', ' + element.asurite_id.raw +
-            ', ' + department_data['name'] + ', ' + department_data['title'];
+            ', ' + department_data['name'] + ', ' + title;
           new_element.type = "person";
           if (!temp.hasOwnProperty(deptid)) {
             temp[deptid] = [];

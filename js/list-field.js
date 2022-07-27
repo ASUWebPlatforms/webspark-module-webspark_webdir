@@ -44,12 +44,16 @@ function convert_asurite_to_tree(data, departments) {
         if (departments.includes(deptid)) {
 
           var department_data = getDepartmentData(element, deptid);
+          let title = department_data['title'];
+          if (title == null) {
+            title = element.primary_title.raw[0];
+          }
 
           new_element.id = element.asurite_id.raw + ':' + deptid;
           // Remove maybe.
           new_element.sort = element.last_name.raw;
           new_element.text = element.display_name.raw + ', ' + element.asurite_id.raw +
-                  ', ' + department_data['name']+ ', ' + department_data['title'];
+                  ', ' + department_data['name']+ ', ' + title;
           new_element.type = "person";
           if (!temp.hasOwnProperty(deptid)) {
             temp[deptid] = [];
@@ -79,8 +83,8 @@ function getDepartmentData($data, $deptId) {
   return result;
 }
 
-// Prepare parameters for the asurite id solr call.
-function createCallParams(departments, campuses, expertise, empoyeeTypes, titles) {
+// Prepare parameters for the asurite id call.
+function createCallParams(departments, campuses, expertise, employeeTypes, titles) {
   var filters = '';
 
   // Add departments.
@@ -93,9 +97,9 @@ function createCallParams(departments, campuses, expertise, empoyeeTypes, titles
   if (expertise.length > 0) {
     filters = filters + "&expertise_areas=" + expertise.map((value) => encodeURIComponent(value)).join(',');
   }
-  // Add empoyee types
-  if (empoyeeTypes.length > 0) {
-    filters = filters + "&employee_types=" + empoyeeTypes.map((value) => encodeURIComponent(value)).join(',');
+  // Add employee types
+  if (employeeTypes.length > 0) {
+    filters = filters + "&employee_types=" + employeeTypes.map((value) => encodeURIComponent(value)).join(',');
   }
   // Add titles
   if (titles.length > 0) {
@@ -130,10 +134,10 @@ function update_tree() {
   const departments = $(".directory-tree").val().split(',');
   const campuses = $(".campus-tree").val().split(',');
   const expertise = $(".expertise-tree").val().split('|');
-  const empoyeeTypes = $(".employee-type-tree").val().split('|');
+  const employeeTypes = $(".employee-type-tree").val().split('|');
   const titles = $(".field--name-field-filter-title textarea").val().split('\n');
 
-  const query = createCallParams(departments, campuses, expertise, empoyeeTypes, titles);
+  const query = createCallParams(departments, campuses, expertise, employeeTypes, titles);
 
   $.getJSON("/endpoint/filtered-people-in-department"+query, function(json) {
     // Get existing data.

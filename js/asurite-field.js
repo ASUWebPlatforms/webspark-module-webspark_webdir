@@ -117,9 +117,10 @@
     $(data).each(function (i, element) {
       if (element.asurite_id) {
         var new_element = {};
+        let title = element.title;
         new_element.id = element.asurite_id + ':' + element.dept_id;
         new_element.text = element.display_name + ', ' + element.asurite_id +
-                  ', ' + element.dept_name + ', ' + element.title;
+                  ', ' + element.dept_name + ', ' + title;
         new_element.type = "person";
         result.push(new_element);
       }
