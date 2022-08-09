@@ -15,7 +15,7 @@
           catch (e) {}
           initialize_tree(values);
 
-          // Add people form Asurie Add field.
+          // Add people form Asurite Add field.
           $("#asurite-add-options").on("select_node.jstree", function (e, data) {
             // Get the existing values
             default_values = $('.asurite-tree').val().split(',');
@@ -58,7 +58,7 @@
   };
 
   function build_post_data(values) {
-    var postData = {'profiles': []};
+    var postData = {'profiles': [], 'size': '1000', 'page': '1', 'sort': 'last_name_asc' };
     for (const pair of values) {
       const pairValues = pair.split(":");
       postData.profiles.push({"asurite_id": pairValues[0], "dept_id": pairValues[1]});
@@ -117,10 +117,9 @@
     $(data).each(function (i, element) {
       if (element.asurite_id) {
         var new_element = {};
-        let title = element.title;
         new_element.id = element.asurite_id + ':' + element.dept_id;
         new_element.text = element.display_name + ', ' + element.asurite_id +
-                  ', ' + element.dept_name + ', ' + title;
+                  ', ' + element.dept_name + ', ' + element.title;
         new_element.type = "person";
         result.push(new_element);
       }
