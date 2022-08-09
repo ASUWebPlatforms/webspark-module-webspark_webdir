@@ -15,3 +15,5 @@ node_modules/@asu-design-system/app-webdir-ui/dist/*
 /yarn-error.log
 
 /vendor/
+
+.idea/
