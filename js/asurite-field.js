@@ -58,7 +58,7 @@
   };
 
   function build_post_data(values) {
-    var postData = {'profiles': [], 'size': '1000', 'page': '1', 'sort': 'last_name_asc' };
+    var postData = {'profiles': [], 'size': 1000, 'page': 1, 'sort': 'last_name_asc' };
     for (const pair of values) {
       const pairValues = pair.split(":");
       postData.profiles.push({"asurite_id": pairValues[0], "dept_id": pairValues[1]});
