@@ -139,7 +139,7 @@ function update_tree() {
   const expertise = $(".expertise-tree").val().split('|');
   const empoyeeTypes = $(".employee-type-tree").val().split('|');
   const titles = $(".field--name-field-filter-title textarea").val().split('\n');
-  const size = 500;
+  const size = 1500;
   const page = 1;
 
   const query = createCallParams(departments, campuses, expertise, empoyeeTypes, titles, size, page);
