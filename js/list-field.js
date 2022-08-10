@@ -83,8 +83,8 @@ function getDepartmentData($data, $deptId) {
   return result;
 }
 
-// Prepare parameters for the asurite id call.
-function createCallParams(departments, campuses, expertise, employeeTypes, titles) {
+// Prepare parameters for the asurite id solr call.
+function createCallParams(departments, campuses, expertise, empoyeeTypes, titles, size, page) {
   var filters = '';
 
   // Add departments.
@@ -106,7 +106,14 @@ function createCallParams(departments, campuses, expertise, employeeTypes, title
     filters = filters + "&title=" + titles.join(',');
   }
 
-  return filters;
+  if (size > 0) {
+    filters = filters + "&size=" + size;
+  }
+  if (page > 0) {
+    filters = filters + "&page=" + page;
+  }
+
+  return filters + "&sort-by=last_name_asc";
 }
 
 // Create the asurite id checkboxes.
@@ -136,8 +143,9 @@ function update_tree() {
   const expertise = $(".expertise-tree").val().split('|');
   const employeeTypes = $(".employee-type-tree").val().split('|');
   const titles = $(".field--name-field-filter-title textarea").val().split('\n');
-
-  const query = createCallParams(departments, campuses, expertise, employeeTypes, titles);
+  const size = 1500;
+  const page = 1;
+  const query = createCallParams(departments, campuses, expertise, empoyeeTypes, titles, size, page);
 
   $.getJSON("/endpoint/filtered-people-in-department"+query, function(json) {
     // Get existing data.
