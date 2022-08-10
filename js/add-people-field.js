@@ -70,10 +70,14 @@
             el.deptids.raw.length > 0
           ) {
             el.deptids.raw.forEach(function (dt, index) {
+              let title = el.titles.raw[index];
+              if (title == null) {
+                title = el.primary_title.raw[0];
+              }
               let child = {};
               child.id = el.asurite_id.raw + ':' + dt;
               child.parent = el.asurite_id.raw;
-              child.text = el.titles.raw[index] + ', ' + el.departments.raw[index];
+              child.text = title + ', ' + el.departments.raw[index];
               child.type = 'dept';
 
               d.push(child);
