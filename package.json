@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "license": "MIT",
   "dependencies": {
-    "@asu-design-system/app-webdir-ui": "1.24.24"
+    "@asu-design-system/app-webdir-ui": "1.25.1"
   }
 }
