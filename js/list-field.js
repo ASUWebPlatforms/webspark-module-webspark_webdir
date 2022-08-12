@@ -84,7 +84,7 @@ function getDepartmentData($data, $deptId) {
 }
 
 // Prepare parameters for the asurite id solr call.
-function createCallParams(departments, campuses, expertise, empoyeeTypes, titles, size, page) {
+function createCallParams(departments, campuses, expertise, employeeTypes, titles, size, page) {
   var filters = '';
 
   // Add departments.
@@ -145,7 +145,7 @@ function update_tree() {
   const titles = $(".field--name-field-filter-title textarea").val().split('\n');
   const size = 1500;
   const page = 1;
-  const query = createCallParams(departments, campuses, expertise, empoyeeTypes, titles, size, page);
+  const query = createCallParams(departments, campuses, expertise, employeeTypes, titles, size, page);
 
   $.getJSON("/endpoint/filtered-people-in-department"+query, function(json) {
     // Get existing data.
