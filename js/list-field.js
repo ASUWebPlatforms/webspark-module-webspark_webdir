@@ -45,7 +45,7 @@ function convert_asurite_to_tree(data, departments) {
 
           var department_data = getDepartmentData(element, deptid);
           let title = department_data['title'];
-          if (title == null) {
+          if (title == null && element.primary_title != undefined) {
             title = element.primary_title.raw[0];
           }
 
@@ -77,8 +77,9 @@ function convert_asurite_to_tree(data, departments) {
 
 function getDepartmentData($data, $deptId) {
   var result = [];
-  result['name'] = $data.departments.raw[0];
-  result['title'] = $data.titles.raw[0];
+  let deptindex = $data.deptids.raw.indexOf($deptId);
+  result['name'] = $data.departments.raw[deptindex];
+  result['title'] = $data.titles.raw[deptindex];
 
   return result;
 }
@@ -143,7 +144,7 @@ function update_tree() {
   const expertise = $(".expertise-tree").val().split('|');
   const employeeTypes = $(".employee-type-tree").val().split('|');
   const titles = $(".field--name-field-filter-title textarea").val().split('\n');
-  const size = 1500;
+  const size = 100;
   const page = 1;
   const query = createCallParams(departments, campuses, expertise, employeeTypes, titles, size, page);
 

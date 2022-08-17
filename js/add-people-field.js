@@ -17,12 +17,10 @@
                 // Populate the tree
                 searchPeople(value);
               }, 500);
-            }
-            else {
+            } else {
               // Empty the results.
             }
           });
-
         });
       }
     }
@@ -34,8 +32,8 @@
       .jstree({
         'core': {
           'data': [],
-          'themes': { dots: false },
-          'check_callback': true,
+          'themes': {dots: false},
+          'check_callback': true
         },
         types: {
           "person": {
@@ -44,8 +42,7 @@
           "dept": {
             "icon": "fa fa-bookmark"
           },
-          "default": {
-          }
+          "default": {}
         },
         "plugins": ["types"]
       });
@@ -57,34 +54,89 @@
       if (json.results.length > 0) {
         var d = [];
         json.results.forEach(el => {
-          let p = {};
 
-          p.id = el.asurite_id.raw;
-          p.parent = '#';
-          p.text = el.display_name.raw + ', ' + el.asurite_id.raw;
-          p.type = 'person';
+          if (el.primary_affiliation !== undefined && el.primary_affiliation.raw != null &&
+            el.primary_affiliation.raw !== "COURTESY_AFFILIATE") {
+            // person
+            let p = {};
+            p.id = el.asurite_id.raw;
+            p.parent = '#';
+            p.text = el.display_name.raw + ', ' + el.asurite_id.raw;
+            p.type = 'person';
 
-          // Departments.
-          if (typeof el.deptids !== 'undefined' &&
-            el.deptids.raw !== null &&
-            el.deptids.raw.length > 0
-          ) {
-            el.deptids.raw.forEach(function (dt, index) {
-              let title = el.titles.raw[index];
-              if (title == null) {
+            // department(s)
+            if (typeof el.deptids !== 'undefined' &&
+              el.deptids.raw !== null &&
+              el.deptids.raw.length > 0
+            ) {
+              el.deptids.raw.forEach(function (dt, index) {
+                let title = el.titles.raw[index];
+                if (title == null && el.primary_title !== undefined) {
+                  title = el.primary_title.raw[0];
+                }
+                let child = {};
+                child.id = el.asurite_id.raw + ':' + dt;
+                child.parent = el.asurite_id.raw;
+                child.text = title + ', ' + el.departments.raw[index];
+                child.type = 'dept';
+
+                d.push(child);
+              });
+            } else {
+              let title = el.titles !== undefined && el.titles.raw !== null && el.titles.raw.length > 0 ? el.titles.raw[0] : null;
+              if (title == null && el.primary_title !== undefined && el.primary_title.raw !== null && el.primary_title.raw.length > 0) {
                 title = el.primary_title.raw[0];
+              } else if (el.working_title !== undefined && el.working_title.raw !== null && el.working_title.raw.length > 0) {
+                title = el.working_title.raw[0];
+              }
+              let affil = el.departments !== undefined && el.departments.raw !== null && el.departments.raw.length > 0 ? el.departments.raw[0] : null;
+              if (affil === null && el.primary_search_department_affiliation !== undefined &&
+                el.primary_search_department_affiliation.raw !== null &&
+                el.primary_search_department_affiliation.raw.length > 0) {
+                affil = el.primary_search_department_affiliation.raw[0];
               }
               let child = {};
-              child.id = el.asurite_id.raw + ':' + dt;
+              child.id = el.asurite_id.raw + ':' + 'unaffiliated';
               child.parent = el.asurite_id.raw;
-              child.text = title + ', ' + el.departments.raw[index];
+              child.text = title + ', ' + affil;
               child.type = 'dept';
 
               d.push(child);
-            });
+            }
+            d.push(p);
           }
+          else {
+            let p = {};
+            p.id = el.asurite_id.raw;
+            p.parent = '#';
+            p.text = el.display_name.raw + ', ' + el.asurite_id.raw;
+            p.type = 'person';
 
-          d.push(p);
+            if (el.primary_affiliation !== undefined && el.primary_affiliation.raw !== null &&
+              el.primary_affiliation.raw === "COURTESY_AFFILIATE") {
+              let title = "Courtesy Affiliate"
+              let affil = "Arizona State University";
+              if (el.subaffiliations !== undefined &&
+              el.subaffiliations.raw !== null &&
+              el.subaffiliations.raw.length > 0) {
+                affil = el.subaffiliations.raw[0];
+              }
+              else if (el.subaffiliation_departments !== undefined &&
+                  el.subaffiliation_departments.raw !== null &&
+                  el.subaffiliation_departments.raw.length > 0) {
+                affil = el.subaffiliation_departments.raw[0];
+              }
+
+              let child = {};
+              child.id = el.asurite_id.raw + ':' + 'unaffiliated';
+              child.parent = el.asurite_id.raw;
+              child.text = title + ', ' + affil;
+              child.type = 'dept';
+
+              d.push(child);
+            }
+            d.push(p);
+          }
         });
       }
 
