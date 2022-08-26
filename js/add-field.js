@@ -22,7 +22,7 @@
               // Add the person to the tree.
               default_values.push(data.node.id);
               // Recreate tree with the default values.
-              update_tree();
+              update_tree(default_values);
             }
           });
 
@@ -55,7 +55,7 @@
           if (!temp.hasOwnProperty('preresults')) {
             temp.preresults = [];
           }
-
+          // When more than one department is selected in the tree, nest redundant profiles as parent/children.
           if (departments.length > 1) {
             if (typeof element.deptids !== 'undefined' &&
               element.deptids.raw !== null &&
@@ -117,10 +117,12 @@
     }
   }
 
+  // Get intersection of existing items in two arrays.
   function getArrayIntersection(a1,a2) {
     return  a1.filter(function(n) { return a2.indexOf(n) !== -1;});
   }
 
+  // Get the departments and titles for each profile.
   function getDepartmentData($data, $deptId) {
     var result = [];
     let deptindex = $data.deptids.raw.indexOf($deptId);
@@ -130,7 +132,7 @@
     return result;
   }
 
-  // Prepare parameters for the asurite id solr call.
+  // Prepare parameters for the asurite id elastic call.
   function createCallParams(ids) {
     return "?dept_id[]=" + ids.join('&dept_id[]=') + "&size=100";
   }

@@ -54,7 +54,7 @@
       if (json.results.length > 0) {
         var d = [];
         json.results.forEach(el => {
-
+          // Process profiles that are not for courtesy affiliates.
           if (el.primary_affiliation !== undefined && el.primary_affiliation.raw != null &&
             el.primary_affiliation.raw !== "COURTESY_AFFILIATE") {
             // person
@@ -105,6 +105,7 @@
             }
             d.push(p);
           }
+          // Process profiles that have a primary_affiliation of 'courtesy affiliate'.
           else {
             let p = {};
             p.id = el.asurite_id.raw;
