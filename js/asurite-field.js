@@ -15,15 +15,17 @@
           catch (e) {}
           initialize_tree(values);
 
-          // Add people form Asurite Add field.
+          // Add people from Asurite Add field.
           $("#asurite-add-options").on("select_node.jstree", function (e, data) {
-            // Get the existing values
-            default_values = $('.asurite-tree').val().split(',');
-            if (!default_values.includes(data.node.id)) {
-              // Add the person to the tree.
-              default_values.push(data.node.id);
-              // Recreate tree with the default values.
-              update_tree(default_values);
+            if (data.node.id.includes(":")) {
+              // Get the existing values
+              default_values = $('.asurite-tree').val().split(',');
+              if (!default_values.includes(data.node.id)) {
+                // Add the person to the tree.
+                default_values.push(data.node.id);
+                // Recreate tree with the default values.
+                update_tree(default_values);
+              }
             }
           });
 
@@ -58,7 +60,7 @@
   };
 
   function build_post_data(values) {
-    var postData = {'profiles': [], 'size': 1500, 'page': 1, 'sort': 'last_name_asc' };
+    var postData = {'profiles': [], 'size': 100, 'page': 1, 'sort': 'last_name_asc' };
     for (const pair of values) {
       const pairValues = pair.split(":");
       postData.profiles.push({"asurite_id": pairValues[0], "dept_id": pairValues[1]});

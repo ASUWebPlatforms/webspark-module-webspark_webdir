@@ -6,6 +6,7 @@
       // Check if there are directory type fields.
       if ($(context).find('.asurite-add').length) {
         $('.asurite-add').each(function (index) {
+          var default_values = [];
           // Convert and check the default values.
           initialize_tree();
           $(".directory-tree").on('change', function () {
@@ -13,14 +14,16 @@
             update_tree();
           });
 
-          // Add people form Asurie Add field.
+          // Add people from Asurite Add field.
           $("#asurite-add-options").on("select_node.jstree", function (e, data) {
-            // Get the existing values
-            default_values = $('.asurite-tree').val().split(',');
-            // Add the person to the tree.
-            default_values.push(data.node.id);
-            // Recreate tree with the default values.
-            update_tree(default_values);
+            if (data.node.id.includes(":")) {
+              // Get the existing values
+              default_values = $('.asurite-tree').val().split(',');
+              // Add the person to the tree.
+              default_values.push(data.node.id);
+              // Recreate tree with the default values.
+              update_tree(default_values);
+            }
           });
 
           // Refresh when a person was removed from the list.
@@ -45,63 +48,93 @@
 
           var department_data = getDepartmentData(element, deptid);
           let title = department_data['title'];
-          if (title == null) {
+          if (title == null && element.primary_title !== undefined) {
             title = element.primary_title.raw[0];
           }
 
-          new_element.id = element.asurite_id.raw + ':' + deptid;
-          // Remove maybe.
-          new_element.sort = element.last_name.raw;
-          new_element.text = element.display_name.raw + ', ' + element.asurite_id.raw +
-            ', ' + department_data['name'] + ', ' + title;
-          new_element.type = "person";
-          if (!temp.hasOwnProperty(deptid)) {
-            temp[deptid] = [];
+          if (!temp.hasOwnProperty('preresults')) {
+            temp.preresults = [];
           }
-          temp[deptid].push(new_element);
+          // When more than one department is selected in the tree, nest redundant profiles as parent/children.
+          if (departments.length > 1) {
+            if (typeof element.deptids !== 'undefined' &&
+              element.deptids.raw !== null &&
+              element.deptids.raw.length > 0) {
+              let matches = getArrayIntersection(element.deptids.raw, departments);
+              if (matches.length > 1) {
+                let p = {};
+                if (temp.preresults.filter(el => el.id === element.asurite_id.raw).length < 1) {
+                  p.id = element.asurite_id.raw;
+                  p.parent = '#';
+                  p.text = element.display_name.raw + ', ' + element.asurite_id.raw;
+                  p.sort = element.last_name.raw;
+                  p.type = 'person';
+                  temp.preresults.push(p);
+                }
+                let child = {};
+                if (temp.preresults.filter(el => el.id === element.asurite_id.raw + ':' + deptid).length < 1) {
+                  let index = element.deptids.raw.indexOf(deptid);
+                  child.id = element.asurite_id.raw + ':' + deptid;
+                  child.parent = element.asurite_id.raw;
+                  child.text = title + ', ' + element.departments.raw[index];
+                  child.sort = element.last_name.raw;
+                  child.type = 'dept';
+                  temp.preresults.push(child);
+                }
+              } else {
+                createNewElement();
+                temp.preresults.push(new_element);
+              }
+            }
+          } else {
+            createNewElement();
+            temp.preresults.push(new_element);
+          }
+
+          function createNewElement() {
+            // profile
+            new_element.id = element.asurite_id.raw + ':' + deptid;
+            new_element.parent = '#';
+            new_element.sort = element.last_name.raw;
+            new_element.text = element.display_name.raw + ', ' + element.asurite_id.raw +
+              ', ' + department_data['name'] + ', ' + title;
+            new_element.type = "person";
+          }
         }
       });
     });
 
-    // Filter out duplicate keys, collapse and sort the temp into result.
-    Object.keys(temp).forEach(deptID => {
-      var sorted = temp[deptID];
-
-      const uniqueIds = new Set();
-
-      const unique = sorted.filter(element => {
-        const isDuplicate = uniqueIds.has(element.id);
-
-        uniqueIds.add(element.id);
-
-        if (!isDuplicate) {
-          return true;
-        }
-
-        return false;
-      });
-
-      unique.sort(function (a, b) {
+    // Sort the temp into result.
+    let presort = temp.preresults;
+    if (presort !== undefined) {
+      let sorted = presort.sort(function (a, b) {
         return (a["sort"] < b["sort"]) ? -1 : (a["sort"] > b["sort"]) ? 1 : 0;
       });
-
-      result = result.concat(unique);
-    });
-
-    return result;
+      return sorted;
+    }
+    else {
+      return null;
+    }
   }
 
+  // Get intersection of existing items in two arrays.
+  function getArrayIntersection(a1,a2) {
+    return  a1.filter(function(n) { return a2.indexOf(n) !== -1;});
+  }
+
+  // Get the departments and titles for each profile.
   function getDepartmentData($data, $deptId) {
     var result = [];
-    result['name'] = $data.departments.raw[0];
-    result['title'] = $data.titles.raw[0];
+    let deptindex = $data.deptids.raw.indexOf($deptId);
+    result['name'] = $data.departments.raw[deptindex];
+    result['title'] = $data.titles.raw[deptindex];
 
     return result;
   }
 
-  // Prepare parameters for the asurite id solr call.
+  // Prepare parameters for the asurite id elastic call.
   function createCallParams(ids) {
-    return "?dept_id[]=" + ids.join('&dept_id[]=') + "&size=1000";
+    return "?dept_id[]=" + ids.join('&dept_id[]=') + "&size=100";
   }
 
   // Create the asurite id checkboxes.
@@ -114,12 +147,16 @@
       $('#asurite-add-options') // listen for event
         .jstree({
           'core': {
-            'data': converted_json,
-            'themes': { dots: false }
+            'data': [],
+            'themes': { dots: false },
+            'check_callback': true
           },
           types: {
             "person": {
               "icon": "fa fa-user"
+            },
+            "dept": {
+              "icon": "fa fa-bookmark"
             },
             "default": {
             }
@@ -136,10 +173,12 @@
     var query = createCallParams(departments);
     $.getJSON("/endpoint/people-in-department" + query, function (json) {
       // Get existing data.
-      var existing_values = $('.asurite-tree').val().split(',');
-      converted_json = convert_asurite_to_tree(json.results, departments, existing_values);
-      $('#asurite-add-options').jstree(true).settings.core.data = converted_json;
-      $('#asurite-add-options').jstree(true).refresh();
+      if ($('.asurite-tree').val() !== undefined) {
+        var existing_values = $('.asurite-tree').val().split(',');
+        converted_json = convert_asurite_to_tree(json.results, departments, existing_values);
+        $('#asurite-add-options').jstree(true).settings.core.data = converted_json;
+        $('#asurite-add-options').jstree(true).refresh();
+      }
     });
   }
 
