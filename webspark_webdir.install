@@ -73,3 +73,13 @@ function webspark_webdir_update_9003(&$sandbox)
   $module_cfg_expertise->set('description', '<i><small>Display profiles with at least one matching expertise area.</small></i>')
     ->save();
 }
+
+/**
+ * Fix filter title markup (ASUIS-758).
+ */
+function webspark_webdir_update_9004(&$sandbox) {
+  $module_cfg_title = \Drupal::configFactory()
+    ->getEditable('field.field.block_content.web_directory.field_filter_title');
+  $module_cfg_title->set('description', 'Add one title per row. Title match is case-sensitive. Profiles displayed must match one of these titles.')
+    ->save();
+}
