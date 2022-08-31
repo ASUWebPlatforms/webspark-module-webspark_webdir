@@ -31,6 +31,28 @@
             // Update the tree.
             update_tree(currentSize);
           });
+          
+          // Hide "Web Directory customized sort" option by conditions.
+          // @see https://asudev.jira.com/browse/ASUIS-574
+          $(
+            ".form-item-settings-block-form-field-component-type select",
+            context
+          ).on("change", function () {
+            let componentType = $(this).find(":selected", context).val();
+            let sortOptions = $(
+              ".form-item-settings-block-form-field-default-sort select option",
+              context
+            );
+            sortOptions.each(function () {
+              let val = $(this).val();
+              if (componentType !== "departments" && val === "webdir_customized") {
+                $(this).hide();
+              }
+              else {
+                $(this).show();
+              }
+            });
+          });
         });
       }
     }
