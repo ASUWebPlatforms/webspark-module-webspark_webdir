@@ -1,12 +1,14 @@
 (function ($, Drupal, drupalSettings) {
   var converted_json;
+  let currentPage = 1;
+  let currentSize = 100
+  let totalPages;
 
   Drupal.behaviors.webdirAddField = {
     attach: function (context, settings) {
       // Check if there are directory type fields.
       if ($(context).find('.asurite-add').length) {
         $('.asurite-add').each(function (index) {
-          var default_values = [];
           // Convert and check the default values.
           initialize_tree();
           $(".directory-tree").on('change', function () {
@@ -133,16 +135,18 @@
   }
 
   // Prepare parameters for the asurite id elastic call.
-  function createCallParams(ids) {
-    return "?dept_id[]=" + ids.join('&dept_id[]=') + "&size=100";
+  function createCallParams(ids, size, page) {
+    return "?dept_id[]=" + ids.join('&dept_id[]=') + `&size=${size || 100}` + `&page=${page || 1}`;
   }
 
   // Create the asurite id checkboxes.
-  function initialize_tree() {
+  function initialize_tree(size, page) {
     var departments = $(".directory-tree").val().split(',');
-    var query = createCallParams(departments);
+    var query = createCallParams(departments, size, page);
     $.getJSON("/endpoint/people-in-department" + query, function (json) {
       var existing_values = $('.asurite-tree').val().split(',');
+      currentPage = json?.meta?.page?.current;
+      totalPages = json?.meta?.page?.total_pages;
       converted_json = convert_asurite_to_tree(json.results, departments, existing_values);
       $('#asurite-add-options') // listen for event
         .jstree({
@@ -167,19 +171,81 @@
   }
 
   // Create the asurite id checkboxes.
-  function update_tree() {
+  function update_tree(departments, size, page) {
     var departments = $(".directory-tree").val().split(',');
     //  var departments = ['1661','1374'];
-    var query = createCallParams(departments);
+    var query = createCallParams(departments, size || 100, page);
     $.getJSON("/endpoint/people-in-department" + query, function (json) {
       // Get existing data.
+      totalPages = json?.meta?.page?.total_pages;
+      currentPage = json?.meta?.page?.current;
       if ($('.asurite-tree').val() !== undefined) {
         var existing_values = $('.asurite-tree').val().split(',');
         converted_json = convert_asurite_to_tree(json.results, departments, existing_values);
         $('#asurite-add-options').jstree(true).settings.core.data = converted_json;
         $('#asurite-add-options').jstree(true).refresh();
+
+      // Add pagination and take care of removing them when necessary
+      if (converted_json === null) {
+        removePaginationButtons();
+      } else {
+        
+        addButtons();
+        let pageIndicator = !document.querySelector(".page-indicator-add-people") ? document.createElement("span") : document.querySelector(".page-indicator-add-people");
+        pageIndicator.className = "page-indicator-add-people";
+        document.getElementById("profiles-control-options-add-people")?.firstChild.after(pageIndicator);
+        pageIndicator.textContent = `Page ${currentPage} of ${totalPages}`;
+      }
       }
     });
+  }
+
+  function addButtons() {
+    if (document.getElementById("profiles-control-options-add-people")) return;
+    let fragment = new DocumentFragment();
+    let el = document.getElementById("asurite-add-options").parentElement;
+    let controlsContainer = document.createElement("div");
+    controlsContainer.id = "profiles-control-options-add-people";
+    let rightControl = document.createElement("span")
+    rightControl.setAttribute("aria-label", "next")
+    rightControl.textContent = 'Next';
+    rightControl.style.paddingLeft = '20px';
+    rightControl.className = "right-control";
+    rightControl.setAttribute("tabindex", "0")
+    let leftControl = document.createElement("span")
+    leftControl.setAttribute("aria-label", "previous")
+    leftControl.textContent = 'Prev';
+    leftControl.style.paddingRight = "20px";
+    leftControl.className = "left-control";
+    leftControl.setAttribute("tabindex", "0")
+    
+    rightControl.addEventListener("click", function(e) {;
+      if (currentPage + 1 > totalPages) {
+        return
+      } else {
+        currentPage += 1
+        update_tree(ids = null,currentSize, currentPage)
+      } 
+      
+    })
+    leftControl.addEventListener("click", function(e) {
+      if (currentPage - 1 < 1) {
+        return
+      } else {
+        currentPage -= 1;
+        update_tree(ids = null,currentSize, currentPage)
+
+      } 
+      
+    })
+    controlsContainer.append(leftControl, rightControl)
+    fragment.appendChild(controlsContainer)
+    el.appendChild(fragment);
+  
+  }
+  function removePaginationButtons() {
+    let elem = document.getElementById("profiles-control-options-add-people");
+    elem?.parentElement.removeChild(elem);
   }
 
 })(jQuery, Drupal, drupalSettings);

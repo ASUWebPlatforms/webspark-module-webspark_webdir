@@ -1,5 +1,8 @@
 (function ($, Drupal, drupalSettings) {
   var converted_json;
+  let currentPage = 1;
+  let currentSize = 100
+  let totalPages;
 
   Drupal.behaviors.webdirListField = {
     attach: function (context, settings) {
@@ -10,25 +13,25 @@
           initialize_tree();
           $(".directory-tree").on('change', function() {
             // Update the tree.
-            update_tree();
+            update_tree(currentSize);
           });
           $(".campus-tree").on('change', function() {
             // Update the tree.
-            update_tree();
+            update_tree(currentSize);
           });
           $(".expertise-tree").on('change', function() {
             // Update the tree.
-            update_tree();
+            update_tree(currentSize);
           });
           $(".employee-type-tree").on('change', function() {
             // Update the tree.
-            update_tree();
+            update_tree(currentSize);
           });
           $(".field--name-field-filter-title textarea").on('change', function() {
             // Update the tree.
-            update_tree();
+            update_tree(currentSize);
           });
-
+          
           // Hide "Web Directory customized sort" option by conditions.
           // @see https://asudev.jira.com/browse/ASUIS-574
           $(
@@ -160,22 +163,77 @@ function initialize_tree() {
 }
 
 // Create the asurite id checkboxes.
-function update_tree() {
+function update_tree(size, page) {
   const departments = $(".directory-tree").val().split(',');
   const campuses = $(".campus-tree").val().split(',');
   const expertise = $(".expertise-tree").val().split('|');
   const employeeTypes = $(".employee-type-tree").val().split('|');
   const titles = $(".field--name-field-filter-title textarea").val().split('\n');
-  const size = 100;
-  const page = 1;
   const query = createCallParams(departments, campuses, expertise, employeeTypes, titles, size, page);
 
   $.getJSON("/endpoint/filtered-people-in-department"+query, function(json) {
     // Get existing data.
+    currentPage = json?.meta?.page?.current;
+    totalPages = json?.meta?.page?.total_pages;
     converted_json = convert_asurite_to_tree(json.results, departments);
     $('#asurite-list-options').jstree(true).settings.core.data = converted_json;
     $('#asurite-list-options').jstree(true).refresh();
+    
+      if (departments[0] === '') {
+        removePaginationButtons();
+      } else {
+        addButtons();
+        let pageIndicator = !document.querySelector(".page-indicator-profiles") ? document.createElement("span") : document.querySelector(".page-indicator-profiles");
+        pageIndicator.className = "page-indicator-profiles";
+        document.getElementById("profiles-control-options-list")?.firstChild.after(pageIndicator);
+        pageIndicator.textContent = `Page ${currentPage} of ${totalPages}`;
+      }
   });
+}
+
+// Add Prev and Next buttons
+function addButtons() {
+  if (document.getElementById("profiles-control-options-list")) return;
+  let fragment = new DocumentFragment();
+  let el = document.getElementById("asurite-list-options").parentElement;
+  let controlsContainer = document.createElement("div");
+  controlsContainer.id = "profiles-control-options-list";
+  let rightControl = document.createElement("span")
+  rightControl.setAttribute("aria-label", "next")
+  rightControl.textContent = 'Next';
+  rightControl.style.paddingLeft = '20px';
+  rightControl.className = "right-control";
+  rightControl.setAttribute("tabindex", "0")
+  let leftControl = document.createElement("span")
+  leftControl.setAttribute("aria-label", "previous")
+  leftControl.textContent = 'Prev';
+  leftControl.style.paddingRight = "20px";
+  leftControl.className = "left-control";
+  leftControl.setAttribute("tabindex", "0")
+  
+  rightControl.addEventListener("click", function(e) {
+    if (currentPage + 1 > totalPages) {
+      return
+    } else {
+      currentPage += 1
+      update_tree(currentSize, currentPage)
+    } 
+  })
+  leftControl.addEventListener("click", function(e) {
+    if (currentPage - 1 < 1) {
+     return
+    } else {
+      currentPage -= 1;
+      update_tree(currentSize, currentPage)
+    } 
+  })
+  controlsContainer.append(leftControl, rightControl)
+  fragment.appendChild(controlsContainer)
+  el.appendChild(fragment);
+}
+function removePaginationButtons() {
+  let elem = document.getElementById("profiles-control-options-list");
+  elem?.parentNode?.removeChild(elem)
 }
 
 })(jQuery, Drupal, drupalSettings);
