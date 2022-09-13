@@ -209,17 +209,15 @@
     let rightControl = document.createElement("span")
     rightControl.setAttribute("aria-label", "next")
     rightControl.textContent = 'Next';
-    rightControl.style.paddingLeft = '20px';
     rightControl.className = "right-control";
     rightControl.setAttribute("tabindex", "0")
     let leftControl = document.createElement("span")
     leftControl.setAttribute("aria-label", "previous")
     leftControl.textContent = 'Prev';
-    leftControl.style.paddingRight = "20px";
     leftControl.className = "left-control";
     leftControl.setAttribute("tabindex", "0")
     
-    rightControl.addEventListener("click", function(e) {;
+    rightControl.addEventListener("click", function(e) {
       if (currentPage + 1 > totalPages) {
         return
       } else {
