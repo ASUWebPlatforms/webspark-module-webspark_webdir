@@ -9,7 +9,7 @@ field_name: field_filter_title
 entity_type: block_content
 bundle: web_directory
 label: 'Filter by title'
-description: '<i><small>Add one title per row. Title match is case-sensitive. Profiles displayed must match one of these titles.</small></i>'
+description: '<span class="description form-text text-muted">Add one title per row. Title match is case-sensitive. Profiles displayed must match one of these titles.</span>'
 required: false
 translatable: false
 default_value: {  }

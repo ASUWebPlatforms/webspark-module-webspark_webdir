@@ -9,7 +9,7 @@ field_name: field_people_list
 entity_type: block_content
 bundle: web_directory
 label: 'People list'
-description: ''
+description: '<span class="description form-text text-muted">Profiles listed here are listed alphabetically by unit and will not necessarily match the displayed listing order upon saving.</span>'
 required: false
 translatable: false
 default_value: {  }

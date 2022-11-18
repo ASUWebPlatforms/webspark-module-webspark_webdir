@@ -9,7 +9,7 @@ field_name: field_filter_expertise
 entity_type: block_content
 bundle: web_directory
 label: 'Filter by expertise areas'
-description: '<i><small>Display profiles with at least one matching expertise area.</small></i>'
+description: '<span class="description form-text text-muted">Display profiles with at least one matching expertise area.</span>'
 required: false
 translatable: false
 default_value: {  }
