@@ -61,7 +61,7 @@ content:
               operations:
                 edit: Edit
                 delete: Delete
-            6ef8500d-e118-473b-a245-6c7122fed714:
+            87d7fdbc-8bf3-4000-a93d-daf88404367f:
               operations:
                 edit: Edit
                 delete: Delete
@@ -75,8 +75,8 @@ content:
               comparison: value
               value: departments
               submit: 'Add Cancel'
-          6ef8500d-e118-473b-a245-6c7122fed714:
-            uuid: 6ef8500d-e118-473b-a245-6c7122fed714
+          87d7fdbc-8bf3-4000-a93d-daf88404367f:
+            uuid: 87d7fdbc-8bf3-4000-a93d-daf88404367f
             id: invisible
             data:
               target: field_component_type
@@ -382,7 +382,7 @@ content:
               operations:
                 edit: Edit
                 delete: Delete
-            52f66f5f-186b-4c12-8845-0499e633c6db:
+            3789e707-3109-4340-ac59-68a0a7e71c43:
               operations:
                 edit: Edit
                 delete: Delete
@@ -396,14 +396,14 @@ content:
               comparison: value
               value: departments
               submit: 'Add Cancel'
-          52f66f5f-186b-4c12-8845-0499e633c6db:
-            uuid: 52f66f5f-186b-4c12-8845-0499e633c6db
+          3789e707-3109-4340-ac59-68a0a7e71c43:
+            uuid: 3789e707-3109-4340-ac59-68a0a7e71c43
             id: visible
             data:
               target: field_component_type
               comparison: value
               value: faculty_rank
-              submit: 'Add Cancel'
+              submit: 'Update State Cancel'
   field_people_search:
     type: string_textfield
     weight: 7
