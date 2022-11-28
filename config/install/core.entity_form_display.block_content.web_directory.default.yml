@@ -21,7 +21,6 @@ dependencies:
   module:
     - field_group
     - field_states_ui
-    - maxlength
     - webspark_webdir
 third_party_settings:
   field_group:
@@ -42,6 +41,8 @@ third_party_settings:
         id: ''
         description: ''
         required_fields: true
+_core:
+  default_config_hash: FjxrGRQ7YhYFufu8XBFhC4Oy6LZzqRDUDbtsf1cz63E
 id: block_content.web_directory.default
 targetEntityType: block_content
 bundle: web_directory
@@ -226,9 +227,6 @@ content:
               comparison: value
               value: departments
               submit: 'Add Cancel'
-      maxlength:
-        maxlength_js: null
-        maxlength_js_label: 'Content limited to @limit characters, remaining: <strong>@remaining</strong>'
   field_filter_expertise:
     type: field_webdir_expertise_widget
     weight: 5
@@ -382,10 +380,6 @@ content:
               operations:
                 edit: Edit
                 delete: Delete
-            3789e707-3109-4340-ac59-68a0a7e71c43:
-              operations:
-                edit: Edit
-                delete: Delete
           add: Add
         field_states:
           82ee69d2-dc53-4e9c-89cc-3e52a2fb570d:
@@ -396,14 +390,6 @@ content:
               comparison: value
               value: departments
               submit: 'Add Cancel'
-          3789e707-3109-4340-ac59-68a0a7e71c43:
-            uuid: 3789e707-3109-4340-ac59-68a0a7e71c43
-            id: visible
-            data:
-              target: field_component_type
-              comparison: value
-              value: faculty_rank
-              submit: 'Update State Cancel'
   field_people_search:
     type: string_textfield
     weight: 7
