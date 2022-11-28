@@ -33,12 +33,27 @@ third_party_settings:
       label: 'Display settings'
       region: content
       parent_name: ''
-      weight: 12
+      weight: 13
       format_type: fieldset
       format_settings:
         classes: ''
         show_empty_fields: false
         id: ''
+        description: ''
+        required_fields: true
+    group_filter_by_title:
+      children:
+        - field_filter_title
+      label: 'Filter by title'
+      region: content
+      parent_name: ''
+      weight: 3
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
         description: ''
         required_fields: true
 _core:
@@ -50,7 +65,7 @@ mode: default
 content:
   field_asurite_ids:
     type: field_webdir_asurite_widget
-    weight: 10
+    weight: 11
     region: content
     settings: {  }
     third_party_settings:
@@ -169,7 +184,7 @@ content:
               submit: 'Add Cancel'
   field_filter_campus:
     type: field_webdir_campus_widget
-    weight: 4
+    weight: 5
     region: content
     settings: {  }
     third_party_settings:
@@ -205,7 +220,7 @@ content:
               submit: 'Add Cancel'
   field_filter_employee:
     type: field_webdir_employee_type_widget
-    weight: 6
+    weight: 7
     region: content
     settings: {  }
     third_party_settings:
@@ -229,7 +244,7 @@ content:
               submit: 'Add Cancel'
   field_filter_expertise:
     type: field_webdir_expertise_widget
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings:
@@ -265,7 +280,7 @@ content:
               submit: 'Add Cancel'
   field_filter_title:
     type: string_textarea
-    weight: 3
+    weight: 4
     region: content
     settings:
       rows: 5
@@ -323,7 +338,7 @@ content:
     third_party_settings: {  }
   field_people_add:
     type: field_webdir_add_widget
-    weight: 9
+    weight: 10
     region: content
     settings: {  }
     third_party_settings:
@@ -344,7 +359,7 @@ content:
               submit: 'Update State Cancel'
   field_people_add_department:
     type: field_webdir_add_people_widget
-    weight: 8
+    weight: 9
     region: content
     settings: {  }
     third_party_settings:
@@ -368,7 +383,7 @@ content:
               submit: 'Update State Cancel'
   field_people_list:
     type: field_webdir_list_widget
-    weight: 11
+    weight: 12
     region: content
     settings: {  }
     third_party_settings:
@@ -392,7 +407,7 @@ content:
               submit: 'Add Cancel'
   field_people_search:
     type: string_textfield
-    weight: 7
+    weight: 8
     region: content
     settings:
       size: 60
