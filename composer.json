@@ -2,6 +2,6 @@
     "name": "asuwebplatforms/webspark-module-webspark_webdir",
     "description": "ASU Integrated Search Web Directory for Webspark",
     "type": "drupal-module",
-    "license": "GPL-2.0-or-later",
+    "license": "MIT",
     "require": {}
 }
