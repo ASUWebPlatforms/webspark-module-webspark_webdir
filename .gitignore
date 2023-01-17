@@ -12,6 +12,17 @@ node_modules/@asu-design-system/app-webdir-ui/dist/*
 !node_modules/@asu-design-system/app-webdir-ui/dist/img
 !node_modules/@asu-design-system/app-webdir-ui/dist/img/*
 
+node_modules/@asu
+!node_modules/@asu
+node_modules/@asu/*
+!node_modules/@asu/app-webdir-ui
+node_modules/@asu/app-webdir-ui/*
+!node_modules/@asu/app-webdir-ui/dist
+node_modules/@asu/app-webdir-ui/dist/*
+!node_modules/@asu/app-webdir-ui/dist/webdirUI.umd.js
+!node_modules/@asu/app-webdir-ui/dist/img
+!node_modules/@asu/app-webdir-ui/dist/img/*
+
 /yarn-error.log
 
 /vendor/
