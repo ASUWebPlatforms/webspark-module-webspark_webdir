@@ -12,7 +12,7 @@ class WebsparkWebdirHelpers
   {
     $module_handler = \Drupal::service('module_handler');
     $path_module = $module_handler->getModule('webspark_webdir')->getPath();
-    $appPathFolder = base_path() . $path_module . '/node_modules/@asu-design-system/' . $component_name . '/dist';
+    $appPathFolder = base_path() . $path_module . '/node_modules/@asu/' . $component_name . '/dist';
     return $appPathFolder;
   }
 }

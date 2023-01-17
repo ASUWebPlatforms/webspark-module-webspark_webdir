@@ -52,5 +52,5 @@ search-ui:
   dependencies:
     - webspark_webdir/webdir-core
   js:
-    node_modules/@asu-design-system/app-webdir-ui/dist/webdirUI.umd.js: {}
+    node_modules/@asu/app-webdir-ui/dist/webdirUI.umd.js: {}
     js/webspark_webdir.js: {}
