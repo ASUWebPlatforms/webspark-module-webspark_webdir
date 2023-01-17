@@ -9,7 +9,7 @@ field_name: field_people_add
 entity_type: block_content
 bundle: web_directory
 label: 'Add profiles'
-description: '<i><small>*Click on a profile to add it to the list</small></i><br>'
+description: '<span class="description form-text text-muted">*Click on a profile to add it to the list</span>'
 required: false
 translatable: false
 default_value: {  }

@@ -83,3 +83,23 @@ function webspark_webdir_update_9004(&$sandbox) {
   $module_cfg_title->set('description', 'Add one title per row. Title match is case-sensitive. Profiles displayed must match one of these titles.')
     ->save();
 }
+
+/**
+ * Revert all the module config.
+ */
+function webspark_webdir_update_9005(&$sandbox) {
+  _webspark_webdir_revert_all_module_config();
+}
+
+function _webspark_webdir_revert_all_module_config() {
+  // Get this module name.
+  $module = \Drupal::service('module_handler')
+    ->getModule(basename(__FILE__, '.install'))
+    ->getName();
+  // Unlock the configuration storage.
+  \Drupal::state()->set('configuration_locked', FALSE);
+  // Revert all configs from this module.
+  \Drupal::service('webspark.config_manager')->revertAll($module);
+  // Lock the configuration storage.
+  \Drupal::state()->set('configuration_locked', TRUE);
+}

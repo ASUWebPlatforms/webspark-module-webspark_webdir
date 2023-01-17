@@ -9,7 +9,7 @@ field_name: field_filter_campus
 entity_type: block_content
 bundle: web_directory
 label: 'Filter by campus'
-description: '<i><small>Only display profiles with a primary job campus matching one of these campuses.</small></i>'
+description: '<span class="description form-text text-muted">Only display profiles with a primary job campus matching one of these campuses.</span>'
 required: false
 translatable: false
 default_value: {  }

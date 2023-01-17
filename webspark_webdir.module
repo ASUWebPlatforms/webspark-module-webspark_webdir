@@ -70,7 +70,12 @@ function webspark_webdir_preprocess_block__web_directory(&$variables)
 
   $defaultSort = '';
   if ($blockContent->hasField('field_default_sort')) {
-    $defaultSort = $blockContent->field_default_sort->value;
+    if ($searchType === 'faculty_rank') {
+      $defaultSort = 'faculty_rank';
+    }
+    else {
+      $defaultSort = $blockContent->field_default_sort->value;
+    }
   }
 
   $dontDisplayProfiles = '';

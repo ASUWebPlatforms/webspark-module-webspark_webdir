@@ -19,6 +19,9 @@ settings:
     -
       value: departments
       label: Departments
+    -
+      value: faculty_rank
+      label: 'Faculty by rank'
   allowed_values_function: ''
 module: options
 locked: false
