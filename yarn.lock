@@ -10,10 +10,10 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@asu/app-webdir-ui@1.2.0":
-  version "1.2.0"
-  resolved "https://npm.pkg.github.com/download/@asu/app-webdir-ui/1.2.0/484ce68e2a1185ed78cca3e0709cd50d7ce57e45#484ce68e2a1185ed78cca3e0709cd50d7ce57e45"
-  integrity sha512-wSxQSh57JJoJP0EDDiCCXI+DgydNJ4hPH/pxyv6fbETzcRZ+58PaXms0BA8IeJfEqdjDn2L/FT1CsBnXnSOo+Q==
+"@asu/app-webdir-ui@1.2.7":
+  version "1.2.7"
+  resolved "https://npm.pkg.github.com/download/@asu/app-webdir-ui/1.2.7/cb1333c66a73e67fbbf4534272862aeeedb33d45#cb1333c66a73e67fbbf4534272862aeeedb33d45"
+  integrity sha512-5Hr2n3H6rmuR5xkIk8U+N+bu49zeQaWjYGY8GttFRk7f6fPU0EmrkJLDvEzL5IHSWv1QuRmUfi5/BRe5cr3K0g==
   dependencies:
     "@asu/component-carousel" "^1.0.0"
     "@asu/components-core" "^1.0.0"
@@ -24,7 +24,7 @@
     react ">= 16.14.0 < 18"
     react-dom ">= 16.14.0 < 18"
     react-router-dom "^6.2.1"
-    storybook-addon-mock "^1.3.0"
+    storybook-addon-mock "^3.2.0"
     styled-components "^5.3.0"
 
 "@asu/component-carousel@^1.0.0":
@@ -1135,7 +1135,7 @@
     pirates "^4.0.5"
     source-map-support "^0.5.16"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.0.0-rc.0", "@babel/runtime@^7.12.5", "@babel/runtime@^7.17.8", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.12.5", "@babel/runtime@^7.17.8", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7":
   version "7.20.7"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.20.7.tgz#fcb41a5a70550e04a7b708037c7c32f7f356d8fd"
   integrity sha512-UF0tvkUtxwAgZ5W/KrkHf0Rn0fdnLDU9ScxBrEVNUprE/MzirjK4MJUX1/BVDv00Sv8cljtukVK1aky++X1SjQ==
@@ -1783,7 +1783,7 @@
     prop-types "^15.7.2"
     regenerator-runtime "^0.13.7"
 
-"@storybook/addons@6.5.15", "@storybook/addons@^6.2.9":
+"@storybook/addons@6.5.15":
   version "6.5.15"
   resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-6.5.15.tgz#3c3fafbf3c9ce2182d652cb6682f6581ba6580e1"
   integrity sha512-xT31SuSX+kYGyxCNK2nqL7WTxucs3rSmhiCLovJcUjYk+QquV3c2c53Ki7lwwdDbzfXFcNAe0HJ4hoTN4jhn0Q==
@@ -2256,7 +2256,7 @@
     react-docgen-typescript "^2.1.1"
     tslib "^2.0.0"
 
-"@storybook/react@^6.2.3", "@storybook/react@^6.2.9":
+"@storybook/react@^6.2.3":
   version "6.5.15"
   resolved "https://registry.yarnpkg.com/@storybook/react/-/react-6.5.15.tgz#83e645b16a4d241ec84a8d0015b1a7a2d55c5091"
   integrity sha512-iQta2xOs/oK0sw/zpn3g/huvOmvggzi8z2/WholmUmmRiSQRo9lOhRXH0u13T4ja4fEa+u7m58G83xOG6i73Kw==
@@ -8297,13 +8297,6 @@ react-is@^16.13.1, react-is@^16.7.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-json-editor-ajrm@^2.5.13:
-  version "2.5.13"
-  resolved "https://registry.yarnpkg.com/react-json-editor-ajrm/-/react-json-editor-ajrm-2.5.13.tgz#d2496b6b0166ff9e6bb5dbb85ba3615d8f398151"
-  integrity sha512-uYRJFzY34w7coLxeWPFZGyQpWdBKK5e8R9jBZTJ5gAFp3WuGVG2DdGZ8oJKOVJy0hqkxS9DzJIzGmmxHHQ9afA==
-  dependencies:
-    "@babel/runtime" "^7.0.0-rc.0"
-
 react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
@@ -9146,16 +9139,14 @@ store2@^2.12.0:
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.14.2.tgz#56138d200f9fe5f582ad63bc2704dbc0e4a45068"
   integrity sha512-siT1RiqlfQnGqgT/YzXVUNsom9S0H1OX+dpdGN1xkyYATo4I6sep5NmsRD/40s3IIOvlCq6akxkqG82urIZW1w==
 
-storybook-addon-mock@^1.3.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/storybook-addon-mock/-/storybook-addon-mock-1.7.0.tgz#94ab14c5684110a6bdf3d915293343c821b298db"
-  integrity sha512-3VZFuEqWNYgYeMrTWvtGHzhA3twppwX983Sun1m+i2/beQi1D9vSeMheaUL1fPzy3ZZ78BNUaEA9XxTguAfXJw==
+storybook-addon-mock@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/storybook-addon-mock/-/storybook-addon-mock-3.2.0.tgz#5832b1e49ff39ffab7a0ae8ec7de8bfdb8ddea45"
+  integrity sha512-LaggsF/6Lt0AyHiotIEVQpwKfIiZ3KsNqtdXKVnIdOetjaD7GaOQeX0jIZiZUFX/i6QLmMuNoXFngqqkdVtfSg==
   dependencies:
-    "@storybook/addons" "^6.2.9"
-    "@storybook/react" "^6.2.9"
     mock-xmlhttprequest "^7.0.3"
     path-to-regexp "^6.2.0"
-    react-json-editor-ajrm "^2.5.13"
+    polished "^4.2.2"
 
 stream-browserify@^2.0.1:
   version "2.0.2"
