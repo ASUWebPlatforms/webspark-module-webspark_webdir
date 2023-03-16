@@ -10,10 +10,10 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@asu/app-webdir-ui@1.2.13":
-  version "1.2.13"
-  resolved "https://npm.pkg.github.com/download/@asu/app-webdir-ui/1.2.13/e688ef490dc0e765a58731bd07ebc45db5b41949#e688ef490dc0e765a58731bd07ebc45db5b41949"
-  integrity sha512-YOT48Uytg8bv+opPafq1/mnwuI8jHXPEItjVK/qObBrVjEF9OhTi3JlHp8oNeQmjpuViAgikJJEEc0uNSpbKvQ==
+"@asu/app-webdir-ui@1.2.15":
+  version "1.2.15"
+  resolved "https://npm.pkg.github.com/download/@asu/app-webdir-ui/1.2.15/6201d47944275ec82ae20e123c13ca53b8f3ea8a#6201d47944275ec82ae20e123c13ca53b8f3ea8a"
+  integrity sha512-fZc60otPTu5O3YuQn2BMWdQS9YemyjqpRSmfkELYez0KKfPYrtKCZA3h6q2ErKBzSt0TEMcaY01dB22CPoa59w==
   dependencies:
     "@asu/component-carousel" "^1.0.0"
     "@asu/components-core" "^1.0.0"
