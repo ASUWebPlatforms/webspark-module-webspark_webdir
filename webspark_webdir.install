@@ -91,6 +91,13 @@ function webspark_webdir_update_9005(&$sandbox) {
   _webspark_webdir_revert_all_module_config();
 }
 
+/**
+ * Revert all the module's configs.
+ */
+function webspark_webdir_update_9006(&$sandbox) {
+  _webspark_webdir_revert_all_module_config();
+}
+
 function _webspark_webdir_revert_all_module_config() {
   // Get this module name.
   $module = \Drupal::service('module_handler')
