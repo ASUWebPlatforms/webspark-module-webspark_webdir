@@ -26,7 +26,7 @@
           filters: {
             employee: value.dataset.filterEmployee,
             expertise: value.dataset.filterExpertise,
-            title: value.dataset.filterTitle.replace(/\r?\n|\r/g, ","),
+            title: value.dataset.filterTitle,
             campuses: value.dataset.filterCampuses,
           },
           display: {

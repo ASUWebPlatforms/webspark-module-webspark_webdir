@@ -125,7 +125,7 @@ class WebdirController extends ControllerBase {
     
     // Add the query if not NULL.
     if ($query) {
-      $url = $url . '?' . urldecode($query);
+      $url = $url . '?' . $query;
     }
 
     $request = $this->client->get($url);

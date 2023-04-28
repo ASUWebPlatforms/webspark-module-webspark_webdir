@@ -196,7 +196,7 @@ function update_tree(size, page) {
   const campuses = $(".campus-tree").val().split(',');
   const expertise = $(".expertise-tree").val().split('|');
   const employeeTypes = $(".employee-type-tree").val().split('|');
-  const titles = $(".field--name-field-filter-title textarea").val().split('\n');
+  const titles = $(".field--name-field-filter-title textarea").val().split('\n').map((value) => encodeURIComponent(value));
   const query = createCallParams(departments, campuses, expertise, employeeTypes, titles, size, page);
 
   $.getJSON("/endpoint/filtered-people-in-department"+query, function(json) {
