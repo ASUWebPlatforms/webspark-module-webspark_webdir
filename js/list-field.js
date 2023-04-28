@@ -11,9 +11,11 @@
         $('.asurite-list').each(function(index) {
           // Convert and check the default values.
           initialize_tree();
+          sort_option_rules(context);
           $(".directory-tree").on('change', function() {
             // Update the tree.
             update_tree(currentSize);
+            sort_option_rules(context);
           });
           $(".campus-tree").on('change', function() {
             // Update the tree.
@@ -38,25 +40,51 @@
             ".form-item-settings-block-form-field-component-type select",
             context
           ).on("change", function () {
-            let componentType = $(this).find(":selected", context).val();
-            let sortOptions = $(
-              ".form-item-settings-block-form-field-default-sort select option",
-              context
-            );
-            sortOptions.each(function () {
-              let val = $(this).val();
-              if (componentType !== "departments" && val === "webdir_customized") {
-                $(this).hide();
-              }
-              else {
-                $(this).show();
-              }
-            });
+            sort_option_rules(context);
           });
         });
       }
     }
   };
+
+  function sort_option_rules(context) {
+    let componentType = $(context).find(":selected", context).val();
+    let sortOptions = $(
+        ".form-item-settings-block-form-field-default-sort select option",
+        context
+    );
+    let units = $("#directory-tree-options").find("a.jstree-clicked").length
+    sortOptions.each(function () {
+      let val = $(this).val();
+      if (componentType !== "departments") {
+        if (val === "webdir_customized") {
+          $(this).hide();
+          $(this).prop("selected", false);
+        }
+        else {
+          $(this).show();
+        }
+      }
+      else if (componentType === "departments") {
+        if (val === "webdir_customized") {
+          if (units > 1) {
+            $(this).hide();
+            $(this).prop("selected", false);
+          }
+          else {
+            $(this).show();
+          }
+        }
+        if (val === "people_order") {
+          $(this).hide();
+          $(this).prop("selected", false);
+        }
+      }
+      else {
+        $(this).show();
+      }
+    });
+  }
 
 // Convert the json from the asuriteid to be compatible with the jstree.
 function convert_asurite_to_tree(data, departments) {
@@ -91,10 +119,10 @@ function convert_asurite_to_tree(data, departments) {
   // Collapse and sort the temp into result.
   Object.keys(temp).forEach(deptID => {
     var sorted = temp[deptID];
-    sorted.sort(function(a, b){
-      return (a["sort"] < b["sort"]) ? -1 : (a["sort"] > b["sort"]) ? 1 : 0;
-    });
     result = result.concat(sorted);
+  });
+  result.sort(function(a, b){
+    return (a["sort"] < b["sort"]) ? -1 : (a["sort"] > b["sort"]) ? 1 : 0;
   });
 
   return result;
@@ -178,7 +206,7 @@ function update_tree(size, page) {
     converted_json = convert_asurite_to_tree(json.results, departments);
     $('#asurite-list-options').jstree(true).settings.core.data = converted_json;
     $('#asurite-list-options').jstree(true).refresh();
-    
+
       if (departments[0] === '') {
         removePaginationButtons();
       } else {
@@ -208,14 +236,14 @@ function addButtons() {
   leftControl.textContent = 'Prev';
   leftControl.className = "left-control";
   leftControl.setAttribute("tabindex", "0")
-  
+
   rightControl.addEventListener("click", function(e) {
     if (currentPage + 1 > totalPages) {
       return
     } else {
       currentPage += 1
       update_tree(currentSize, currentPage)
-    } 
+    }
   })
   leftControl.addEventListener("click", function(e) {
     if (currentPage - 1 < 1) {
@@ -223,7 +251,7 @@ function addButtons() {
     } else {
       currentPage -= 1;
       update_tree(currentSize, currentPage)
-    } 
+    }
   })
   controlsContainer.append(leftControl, rightControl)
   fragment.appendChild(controlsContainer)
