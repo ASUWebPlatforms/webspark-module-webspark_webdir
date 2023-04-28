@@ -57,7 +57,8 @@ function convert_dir(data, default_values) {
     var new_element = {};
     new_element.id = element.name;
     new_element.text = element.name;
-    if (default_values.includes(element.name.toString())) {
+    let default_values_array = default_values[0].split(",");
+    if (default_values_array.includes(element.name.toString())) {
       new_element.state = {'selected' : true};
     }
 
